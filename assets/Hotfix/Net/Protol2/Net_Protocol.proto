@@ -1,0 +1,192 @@
+syntax = "proto3";
+package pb;
+option java_package = "ww.protocol";
+option go_package = "./pb";
+
+//消息服务模块
+enum CmdModule {
+  IdleModule =0;
+  Login = 1000;//登录svc模块
+  Lobby = 3000;//游戏大厅svc模块
+  Theme=4000;//主题xxx房间
+
+}
+
+/*
+//消息头id
+added by yh @ 2023/08/25 14:09
+注意:
+协议规则 协议号/1000 为模块id 取余为消息号
+如 1001002 msgid /1000 =取整数模块Id 取余数 模块下的结构id号
+Cmd.Login_Login //Cmd.模块名_功能名 这样的 代表登录模块的-登录消息
+Base_Login_LoginInfo //消息需要的结构对象 Base_模块名_功能名Info
+Net_Login_LoginReq //客户端请求格式  Net_模块名_功能名Req
+Net_Login_LoginRet //服务器返回格式  Net_模块名_功能名Ret
+
+//unity cocos客户端 统一用法 Cmd.Login_Login --> Cmd.Login_Login
+GameNet.Instance.RegisterProtocolHandler(Cmd.Login_Login,ProtocolLoginHandler);
+private void ProtocolLoginHandler(MsgPendingData msg_data){
+    Net_Login_LoginRet data = Net_Login_LoginRet.Parser.ParseFrom(msg_data.data_bytes);
+}
+ProtocolVersion =1;//协议版本号
+
+Game服务器消息协议
+*/
+enum Cmd
+{
+  //CmdIdle = 0; //空置占位没用
+  Login_KeepAlive = 0;//heartbeat 心跳包
+  Login_Reconnect = 1000;//断线重连
+  Login_Login = 6003;//登录
+  Login_BindUser = 1004;//绑定账号
+  Login_SendSms = 1005;//发送短信
+  Login_ResetPassWord = 1006;//重置密码
+  Login_PlayerInfo = 1050;//获得角色信息 广播玩家数据 Login_BroadcastPlayerData
+  //--------------------------------------------------------
+  Broadcast_BroadcastData = 50050;
+  //--------------------------------------------------------
+  Player_QueryPlayerInfo = 2900;//查询玩家信息
+  //Player_GetMemberGameRecord = 9001;//获取会员游戏记录 --todo--协议号冲突
+  //Player_GetGameSettlementInfo = 2002;//获取游戏结算信息 --todo--协议号冲突
+  Player_GetGameVideo = 2903;//获取游戏视频
+  Player_GetHallGameRecord = 2904;//获取大厅比赛记录
+  Player_GetRoomGameRecord = 2905;//获取房间游戏记录
+
+  Player_NoticeDingHao = 2952;//通知顶号
+  Player_NoticePlayerErrorCode = 2950;//通知玩家误代码
+  Player_NoticePlayerRoomCardNum = 2951;//通知玩家房间卡号
+  Player_ErrorCodeTips = 2990;//错误代码提示
+
+
+  //========俱乐部=================================================
+  Club_EnterClub = 9000;//进入俱乐部
+  Club_GetSelfAllClubBlurb = 9001;//获取自己所有俱乐部简介 --todo--协议号冲突
+  Club_GetClubSetInfo = 9002;//获取俱乐部设置信息
+  Club_EditClubSetInfo = 9003;//编辑俱乐部设置信息
+  Club_GetClubRankRecords = 9004;//获取俱乐部排名记录
+  Club_GetClubRankCent = 9005;//获取俱乐部排名分
+  Club_ModifyClubRankCent = 9006;//修改俱乐部排名积分
+  Club_GetModifyClubMemberCent = 9007;//获取修改俱乐部会员积分
+  Club_ModifyClubMemberCent = 9008;//修改会员积分
+  Club_GetClubMemberCentChangeRecord = 9009;//获取俱乐部会员积分变更记录
+  Club_GetClubMemberGameRecord = 9010;//获取俱乐部会员游戏记录
+  Club_GetClubMemberContributionRecord = 9011;//获取俱乐部会员贡献记录
+  Club_GetClubTeamContributionRecord = 9012;//获取俱乐部球队贡献记录
+  Club_ModifyClubRoomFeeRatioValue = 9013;//修改会所客房费用比率值
+  Club_ModifyClubWarnCent = 9014;//修改俱乐部警告中心
+
+  Club_KickOutClub = 9100;//踢出俱乐部
+  Club_LeaveClub = 9101;//离开俱乐部
+  Club_InviteJoinClub = 9102;//邀请加入俱乐部
+
+  Club_CreateClub = 9200;//创建俱乐部
+  Club_DissloveClub = 9201;//解散俱乐部
+  Club_ChangeClubMemberIdentity = 9203;//更改俱乐部会员身份
+  Club_ApplyJoinClub = 9204;//申请加入俱乐部
+  Club_GetClubMembers = 9205;//获取俱乐部会员
+
+  Club_ClubRoomGetAllRule = 9300;//俱乐部房间获取全部规则
+  Club_ClubRoomCreateRule = 9301;//俱乐部房间创建规则
+  Club_ClubRoomRemoveRule = 9302;//俱乐部房间移除规则
+  Club_ClubRoomSetRuleRoomActive = 9303;//俱乐部房间设置规则室活动
+  Club_ClubRoomCloseClub = 9304;//俱乐部客房 关闭俱乐部
+  //-----todo-----服务器主动推送协议--------
+  Club_ClubRoomBroadcastNewCreateRuleRoom = 9350; //俱乐部房间广播新建创建规则房间
+  Club_ClubRoomBroadcastRemovePauseRuleRoom = 9351;//俱乐部房间广播移除暂停规则房间
+  Club_ClubRoomNoticeAllRoom = 9352;//俱乐部客房通知全部客房
+  Club_BroadcastAddClubRoom = 9353;//广播添加俱乐部房间
+  Club_BroadcastRemoveClubRoom = 9354;//广播移除俱乐部房间
+  Club_BroadcastAddClubRoomPlayer = 9355;//广播添加俱乐部房间播放器
+  Club_BroadcastRemoveClubRoomPlayer = 9356;//广播移除俱乐部房间玩家
+  Club_BroadcastUpdateClubRoomGameNum = 9357;//广播更新俱乐部房间游戏号码
+  Club_BroadcastClubSetInfo = 9358;//广播俱乐部设置信息
+  Club_BroadcastDissloveClub = 9359;
+  Club_NoticeClubIdentityChange = 9360;
+  Club_NoticeKickedOutClub = 9361;
+  Club_NoticeClubCentChange = 9362;
+
+  //============公共房间===================================================
+
+  Room_CreateRoom = 2000;//创建房间
+  Room_JoinRoom = 2001;//加入房间
+  Room_DissolveRoom = 2002;//申请解散房间 --todo--协议号冲突
+  Room_AgreeOrRefuseDissolveRoom = 2003;//同意、拒绝解散房间
+  Room_UpdateGPS = 2004;//更新GPS
+  Room_NoticeRoleOnlineStatus = 2050;//玩家上线、下线通知
+  Room_NoticeRoleLeaveRoom = 2051;//玩家离开房间通知
+  Room_NoticeRemoveCuratorRoom = 2052;//移除代开房间通知
+  Room_NoticeCuratorCreateRoomSucce = 2053;//通知馆长创建房间
+  Room_NoticeCreateRoomDecrRoomCard = 2054;//创建房间扣除房卡通知
+  Room_NoticeRoomCreateOrJoinSpeData = 2055;//通知玩家房间特定信息
+  Room_NoticeNewMemberJoinRoom = 2056;//通知房间中的玩家有新玩家加入
+  Room_NoticeNewMemberJoinRoomRoleSpeData = 2057;//通知玩家玩家特定信息
+  Room_NoticeCuratorNewMemberJoinRoom = 2058;//通知馆长玩家加入代开房间
+  Room_RoomStatusNotice = 2059;//通知房间状态
+  Room_NoticeModifyApplyDissolveRoom = 2060;//变更申请解散房间通知
+  Room_CreaterDissolveRoomNotice = 2061;//通知房间玩家房主解散房间
+  Room_NoticeApplyDissolveRoom = 2062;//申请解散房间通知
+  Room_PlayerLeaveRoomNotice = 2063;//玩家离开房间通知
+  Room_RoomBalanceNotice = 2064;//结算通知
+  Room_DissolveRoomResultNotice = 2065;//申请解散房间结果通知
+  Room_FlushRoomRoleSpeDataNotice = 2066;//刷新房间特定数据
+  Room_QuitRoom = 2067;//退出房间
+
+  Room_Chat = 2068;//聊天
+
+//=========跑得快===================================================================
+  Pdk_Ready_Cs = 8901;//准备 -不对称消息
+  Pdk_Play_Cs = 8903;//获取玩家信息 -不对称消息
+
+  Pdk_RobBanker = 8902;//获取银行
+  Pdk_Play = 8954;//获取玩家信息
+  Pdk_RoomData = 8955;//获取房间信息
+  Pdk_Ready= 8950;//准备
+  Pdk_SendCards = 8951;//发卡
+  Pdk_NoticePlay= 8953;//通知玩家信息
+  Pdk_SmallBalance = 8956;//小余额
+  Pdk_BigBalance = 8957;//大余额
+  Pdk_UpdateRoomRoleData = 8958;//更新房间角色数据
+  Pdk_RobBankerStart = 8959;//开始抢庄
+  Pdk_RobBankerEnd = 8960;//结束抢庄
+  Pdk_TestCard = 8977;//测试
+  Pdk_ErrorCodeTips = 8990;//错误代码提示
+
+
+}
+
+
+/*
+enum Cmd {
+  CmdIdle = 0; //空置占位没用
+
+  Error = 1001001;
+  //login 1001 1001002 msgid /1000 =取整数模块Id 取余数 模块下的结构id号
+  Login_Login = 1001002;//登录
+  Login_Logout= 1001022;//登出
+  Login_CloseServer = 1001023;//服务器关服中...
+  Login_KeepAlive = 1001003;//heartbeat 心跳包
+  Login_Reconnect = 1001004;//断线重新连接
+  Login_FacebookConnect = 1001005;
+  Login_FacebookLogout = 1001006;
+  Login_FacebookSetUserInfo = 1001007;//Facebook设置用户信息
+  Login_CollectFacebookReward = 1001008; //fb登录奖励
+  Login_AppleLogin = 1001009;
+  Login_AppleLogout = 1001010;
+  Login_MultiUserLogin = 1001011;//多用户登录
+
+  //=======游戏大厅==================================
+  Lobby_AuthorizedLogin =1003001;//授权登录
+  Lobby_ThemeMap =1003002;//大厅子游戏主题列表
+  Lobby_EnterThemeGame =1003003;//进入主题游戏
+  Lobby_ExitThemeGame =1003004;//退出主题游戏
+  //--------商店----------------------------
+  Lobby_Store=1003301;
+  //--------活动----------------------------
+  Lobby_UpdateActivity=1003401;
+  Lobby_LuckyWheel =1003402;//幸运大转盘
+  //--------任务----------------------------
+  Lobby_UpdateTask =1003501;//任务
+
+}
+*/
+

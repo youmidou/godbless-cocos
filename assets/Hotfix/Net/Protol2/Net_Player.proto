@@ -1,0 +1,198 @@
+syntax = "proto3";
+package pb;
+option java_package = "ww.protocol";
+/*
+enum PlayerReqId
+{
+    MSGID_REQ_PLAYER = 0;
+
+    Player_QueryPlayerInfo = 2900;//查询玩家信息
+    Player_GetMemberGameRecord = 9001;//获取会员游戏记录
+    Player_GetGameSettlementInfo = 2002;//获取游戏结算信息
+    Player_GetGameVideo = 2903;//获取游戏视频
+    Player_GetHallGameRecord = 2904;//获取大厅比赛记录
+    Player_GetRoomGameRecord = 2905;//获取房间游戏记录
+
+    Player_NoticeDingHao = 2952;//通知顶号
+    Player_NoticePlayerErrorCode = 2950;//通知玩家误代码
+    Player_NoticePlayerRoomCardNum = 2951;//通知玩家房间卡号
+    Player_ErrorCodeTips = 2990;//错误代码提示
+}
+
+enum PlayerRespId
+{
+    MSGID_RESP_PLAYER = 0;
+    //MSGID_QueryPlayerInfoReply = 2900;
+    MSGID_GetMemberGameRecordReply = 2901;
+    MSGID_GetGameSettlementInfoReply = 2902;
+    //MSGID_GetGameVideoReply = 2903;
+    //MSGID_GetHallGameRecordMsgReply = 2904;
+    //MSGID_GetRoomGameRecordMsgReply = 2905;
+    //MSGID_ErrorCodeTips = 2990;
+}
+*/
+
+//-------------------------------------------查询玩家信息--------------------------------------------
+// 查询玩家的基础信息
+message QueryPlayerInfo
+{
+    // 玩家唯一标识
+    string ppk = 1;
+    // 头像url
+    string avatorUrl = 2;
+    // 昵称
+    string nickName = 3;
+    // 性别
+    int32 sex = 4;
+}
+
+// 查询玩家信息(C -> S)
+message Net_Player_QueryPlayerInfoReq
+{
+    // 玩家唯一标识
+    string ppk = 1;
+}
+
+// 查询玩家信息(S -> C)
+message Net_Player_QueryPlayerInfoRet
+{
+    // 结果
+    int32 result = 1;
+    // 玩家数据
+    QueryPlayerInfo playerInfo = 2;
+}
+
+//-------------------------------------------战绩--------------------------------------------
+// 战绩记录麻将
+message MemberGameRecord
+{
+    // 房间名称
+    string roomName = 1;
+
+    // 改变积分
+    double changeCent = 2;
+
+    // 总积分
+    double totalCent = 3;
+
+    // 时间戳
+    int32 time = 4;
+
+    // 结算id
+    int64 settlementId = 5;
+}
+
+// 获取战绩记录(C -> S)麻将
+message Net_Player_GetMemberGameRecordReq
+{
+    int32 page = 1;// 当前页数(从1开始)
+    int32 perPageMax = 2;// 每页显示最大条数
+}
+
+// 获取战绩记录(S -> C)
+message Net_Player_GetMemberGameRecordRet
+{
+    int32 result = 1;// 结果
+    int32 total = 2;// 总记录数
+    repeated MemberGameRecord records = 3;  // 记录集合
+    string ppk = 4;// 玩家标识
+    string avatorUrl = 5;  // 头像地址
+    string nickName = 6;// 昵称
+}
+
+//-------------------------------------------战绩结算信息--------------------------------------------
+// 获取战绩结算信息(C -> S)
+message Net_Player_GetGameSettlementInfoReq
+{
+    // 结算id
+    int64 id = 1;
+}
+
+// 获取战绩结算信息(S -> C)
+message Net_Player_GetGameSettlementInfoRet
+{
+    // 结果
+    int32 result = 1;
+
+    // 游戏类型
+    int32 type = 2;
+
+    // 结算数据
+    bytes settlementData = 3;
+}
+
+//-------------------------------------------游戏视频回放--------------------------------------------
+// 获取游戏视频(C -> S)
+message Net_Player_GetGameVideoReq
+{
+    // 结算id
+    int64 id = 1;
+}
+
+// 获取游戏视频(S -> C)
+message Net_Player_GetGameVideoRet
+{
+    // 结果
+    int32 result = 1;
+
+    // 游戏类型
+    int32 type = 2;
+
+    // 结算数据
+    bytes videoData = 3;
+}
+
+//-------------------------------------------错误码--------------------------------------------
+// S -> C 推送错误码
+message Net_Player_NoticePlayerErrorCodeRet
+{
+    int32 code = 1; // 错误码
+    string params = 2;// 参数
+}
+
+//-------------------------------------------通知玩家房卡数--------------------------------------------
+// S -> C 通知玩家房卡数
+message Net_Player_NoticePlayerRoomCardNumRet
+{
+  int32 roomCardNum = 1; // 当前房卡数
+}
+
+//-------------------------------------------通知顶号--------------------------------------------
+// S -> C 通知顶号
+message Net_Player_NoticeDingHaoRet
+{
+}
+
+//错误提示
+message Net_Player_ErrorCodeTipsRet
+{
+    //状态码
+    optional int32 code = 1;
+
+    //错误提示
+    optional string errorMsg = 2;
+}
+
+    
+//请求大厅战绩 C--S  2904
+message Net_Player_GetHallGameRecordReq
+{
+}
+//返回大厅战绩 S--C  2904
+message Net_Player_GetHallGameRecordRet
+{
+    repeated string bigBalances = 1;
+}
+
+//请求房间战绩 C--S  2905
+message Net_Player_GetRoomGameRecordReq
+{
+    optional int32 uid = 1;//战绩ID
+}
+//返回房间战绩 S--C  2905
+message Net_Player_GetRoomGameRecordRet
+{
+    optional int32 uid = 1;//战绩ID
+    repeated string smallBalanceDatas = 2;//战绩详情
+
+}

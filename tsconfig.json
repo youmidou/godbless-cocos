@@ -1,0 +1,12 @@
+{
+  /* Base configuration. Do not edit this field. */
+  "extends": "./temp/tsconfig.cocos.json",
+
+  /* Add your custom configuration here. */
+  "compilerOptions": {
+    "strict": false,
+    "sourceMap": true, //将运行时的错误映射回原始的 TypeScript 源代码
+    "baseUrl": "./",
+    "allowSyntheticDefaultImports": true
+  }
+}

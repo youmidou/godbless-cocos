@@ -1,0 +1,409 @@
+syntax = "proto3";
+package pb;
+option java_package = "ww.protocol";
+/*
+  跑得快
+*/
+/*
+//客户端请求
+enum PdkRoomReqId
+{
+    MSGID_REQ_PDK = 0;
+
+    //Pdk_Ready = 8901;//准备
+    //Pdk_RobBanker = 8902;//获取银行
+    //Pdk_Play = 8903;//获取玩家信息
+    //Pdk_TestCard = 8977;//测试
+
+    Pdk_RobBanker = 8902;//获取银行
+    Pdk_Play = 8954;//获取玩家信息
+    Pdk_RoomData = 8955;//获取房间信息
+    Pdk_Ready= 8950;//准备
+    Pdk_SendCards = 8951;//发卡
+    Pdk_NoticePlay= 8953;//通知玩家信息
+    Pdk_SmallBalance = 8956;//小余额
+    Pdk_BigBalance = 8957;//大余额
+    Pdk_UpdateRoomRoleData = 8958;//更新房间角色数据
+    Pdk_RobBankerStart = 8959;//开始抢庄
+    Pdk_RobBankerEnd = 8960;//结束抢庄
+    Pdk_TestCard = 8977;//测试
+    Pdk_ErrorCodeTips = 8990;//错误代码提示
+}
+*/
+/*
+//服务器响应
+enum PdkRoomResId
+{
+    MSGID_RESP_PDK = 0;
+    MSGID_ResReadyMsg = 8950;
+    MSGID_ResSendCardsMsg = 8951;
+    MSGID_ResNoticePlayMsg = 8953;
+    MSGID_ResPlayMsg = 8954;
+    MSGID_ResRoomData = 8955;
+    MSGID_ResSmallBalance = 8956;
+    MSGID_ResBigBalance = 8957;
+    MSGID_ResUpdateRoomRoleData = 8958;
+    MSGID_ResRobBankerStartMsg = 8959;
+    MSGID_ResRobBankerEndMsg = 8960;
+
+    MSGID_ResTestCard = 8977;
+
+    MSGID_ErrorCodeTips = 8990;
+    
+}
+
+*/
+//-------------------------------------------特殊房间数据--------------------------------------------
+// 特殊房间数据
+message Net_Pdk_RoomDataRet
+{
+    // 房间唯一标识 房间ID
+   optional int32 roomId = 1;
+
+    //游戏ID
+   optional int32 gameId = 2;
+
+    //当前操作位置
+   optional int32 currentOptIndex = 3;
+
+    //房间状态
+   optional int32 roomStatus = 4;
+
+    //上一把出的牌数据
+    repeated int32 lastOutCard = 5;
+
+    //回合数
+   optional int32 round = 6;
+
+    //规则列表
+    repeated int32 rules = 7;
+
+    //底分
+   optional int32 baseCredit = 8;
+
+    //房间类型
+   optional int32 roomType = 9;
+
+    //房间名称
+   optional string roomName = 10;
+
+    //当前操作玩家
+   optional string currentOptPlayerId = 11;
+
+    //时间戳
+   optional int64 timeOut = 12;
+
+    //当前房间最大人数
+   optional int32 roomMaxPlayerNum = 13;
+
+    //玩家数据
+    repeated Base_Pdk_RoomRoleData seatInfo = 14;
+
+}
+
+
+//上一次牌数据
+message LCardsData
+{
+    // 出牌玩家
+   optional string ppk = 1;
+
+    // 类型
+   optional int32 type = 2;
+
+     // 此牌型最小点数
+   optional int32 minCard = 3;
+
+    // 牌数据
+    repeated int32 cards = 4;
+
+}
+
+
+//牌数据
+message CardData
+{
+    //uid
+   optional int32 uid = 1;
+
+    //点数
+   optional int32 val = 2;
+
+}
+
+
+// 玩家数据
+message Base_Pdk_RoomRoleData
+{
+  // 玩家ID
+  optional string playerId = 1;
+  //玩家头像
+  optional string headImg = 2;
+  //昵称
+  optional string nickName = 3;
+  //状态码
+  optional int32 playerCode = 4;
+  //是否庄家
+  optional bool banker = 5;
+  //准备状态
+  optional int32 readyStatus = 6;
+  //是否自由出牌 回合第一手牌
+  optional bool freeOutCard = 7;
+  //出的牌是第几手
+  optional int32 curCardsIndex = 8;
+  //是否抢庄
+  optional bool isGrabBanker = 9;
+  //当前总分数
+  optional double score = 10;
+  //座位号
+  optional int32 seatIndex = 11;
+  //提示玩家操作类型 1吃 2碰 3杠 4听 5胡 6过 7不要 8要不起
+  map<int32, string> optTips = 12;
+  //手牌
+  repeated int32 handCards = 13;
+  //手牌数量
+  optional int32 handCardNum = 14;
+  //出的牌
+  optional string outCards = 15;
+  //出的牌下标计数
+  repeated int32 outCardsIndex = 16;
+  //是否首次出牌
+  optional bool isFirstOutCards = 17;
+  //提示出的牌
+  optional string tipCards = 18;
+}
+//准备
+message Net_Pdk_ReadyReq
+{
+    // 准备玩家
+   optional string ppk = 1;
+}
+//返回准备结果
+message Net_Pdk_ReadyRet
+{
+    // 返回准备结果
+   optional int32 result = 1;
+    //准备的玩家
+   optional string ppk = 2;
+}
+//发牌数据
+message Net_Pdk_SendCardsRet
+{
+    //房间ID
+  optional  int32  roomId = 1;
+    //结束时间
+  optional int32  endTime = 2;
+    //回合数
+  optional int32 gameRound = 3;
+  //手牌数量
+  optional int32  cardNum = 4;
+    //手牌数据
+  repeated int32 handCards = 5;
+}
+
+//抢庄
+message Net_Pdk_RobBankerReq
+{
+    // 抢庄玩家
+   optional string ppk = 1;
+   //0不抢 1抢
+   optional int32 robCode = 2;
+}
+//通知抢庄开始
+message Net_Pdk_RobBankerStartRet
+{
+   optional string ppk = 1;
+}
+
+//返回抢庄结果
+message Net_Pdk_RobBankerEndRet
+{
+   optional string ppk = 1;
+    // 返回准备结果0不抢 1抢庄 2系统自动分配
+   optional int32 result = 2;
+    //是否结束抢庄
+   optional bool isEnd = 3;
+}
+
+
+//出牌
+message Net_Pdk_PlayReq
+{
+  // 出牌玩家
+  optional string ppk = 1;
+  //牌数据
+  repeated int32 cardDatas = 2;
+}
+
+
+//返回出牌结果
+message Net_Pdk_PlayRet
+{
+  //出牌玩家
+  optional string ppk = 1;
+  //结果
+  optional int32 result = 2;
+  //所有手牌数
+  optional int32 handNum = 3;
+  //出牌下标
+  optional int32 outCardsIndex = 4;
+  //所有手牌数
+  repeated int32 outCards = 5;
+  //出牌类型
+  optional int32 cardType = 6;
+  //当前手牌数据
+  repeated int32 handCards = 7;
+}
+
+
+//通知出牌
+message Net_Pdk_NoticePlayRet
+{
+    //出牌玩家
+   optional string ppk = 1;
+    //正常出牌 -1  要不起  CANNOTBET
+   optional int32  statue  = 2;
+   //tipCrds [[]] 提示的牌
+   optional string tipCards = 3;
+   //是否自由出牌 我是第一次出牌 和 我出的牌 别人要不起 又轮到我的时候 为自由出牌(理解为每一轮第一个出牌)
+   optional bool isFreeOutCards = 4;
+}
+//小结算
+message Net_Pdk_SmallBalanceRet
+{
+    repeated Base_Pdk_SettleData settleData = 1;
+    optional Base_Pdk_RoomInfo roomInfo = 2;
+}
+
+message Base_Pdk_RoomInfo
+{
+    //房间ID
+   optional int32 roomId = 1;
+    //当前时间
+   optional int64 time = 2;
+    //回合数
+   optional int32 round = 3;
+    //房间类型
+   optional int32 roomType = 4;
+}
+
+message Base_Pdk_SettleData
+{
+    //玩家ID
+   optional string playerId = 1;
+     //头像
+   optional string headImg = 2;
+    //昵称
+   optional string nickName = 3;
+   
+    //比金花分数
+   optional int32 jinHuaCredit = 4;
+
+    //出牌的顺序列表 分别是第几手出牌
+    repeated int32 outCardIndex = 5;
+
+    //出的牌
+    optional string outCard = 6;
+
+    //当前这一局的总输赢分数
+   optional int32 totalCredit = 7;
+    
+    //特殊牌型分数
+   optional int32 specialCardCredit = 8;
+
+    //是否庄家
+   optional bool banker = 9;
+
+    //自己的总分数
+   optional double seatScore = 10;
+
+    //金花牌
+    repeated int32 jinHuaCard = 11;
+
+    //是否抢庄
+   optional bool isGrabBanker = 12;
+
+    //是否春天
+   optional bool spring = 13;
+
+    //剩余牌
+    repeated int32 leftCard = 14;
+
+     //炸弹数
+   optional int32 bombCount = 15;
+
+     //输赢分
+   optional int32 baseCredit = 16;
+
+     //特殊牌类型
+   repeated string specialCardType = 17;
+
+     //是否反春
+   optional bool interruptSpring = 18;
+    
+}
+//大结算
+message Net_Pdk_BigBalanceRet
+{
+   repeated Base_Pdk_BigSettleData settleInfoArr = 1;
+   optional Base_Pdk_RoomInfo roomInfo = 2;
+}
+message Base_Pdk_BigSettleData
+{
+    
+    //玩家ID
+   optional string playerId = 1;
+     //头像
+   optional string headImg = 2;
+    //昵称
+   optional string nickName = 3;
+   
+    //总分
+   optional double totalCredit = 4;
+
+    //输的次数
+   optional int32 loseTimes = 5;
+
+   optional int32 playerCode = 6;
+
+    //赢的次数
+   optional int32 winTimes = 7;
+    
+    //是否是大赢家
+  optional  bool bigWinner = 8;
+    
+}
+
+message Net_Pdk_RoomDataReq
+{
+}
+//更新所有玩家信息
+message Net_Pdk_UpdateRoomRoleDataRet
+{
+    //玩家数据
+    repeated Base_Pdk_RoomRoleData seatInfo = 1;
+}
+
+message Net_Pdk_ErrorCodeTipsRet
+{
+    //状态码
+   optional int32 code = 1;
+
+    //错误提示
+   optional string errorMsg = 2;
+}
+
+//测试配牌
+message Net_Pdk_TestCardReq
+{
+    //状态码
+   optional int32 code = 1;
+   repeated int32 cards = 2;
+}
+
+//返回测试配牌
+message Net_Pdk_TestCardRes
+{
+    //状态码
+   optional int32 code = 1;
+}

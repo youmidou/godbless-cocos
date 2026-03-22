@@ -1,0 +1,27 @@
+syntax = "proto3";
+package pb;
+option java_package = "ww.protocol";
+
+// S -> C 广播数据
+message Net_Broadcast_BroadcastDataRet
+{
+  // 类型
+  int32 type = 1;
+  // 内容
+  string content = 2;
+  // 播放次数
+  int32 count = 3;
+  // 播放优先级
+  int32 priority = 4;
+  // 等级
+  int32 level = 5;
+  // 服务器时间
+  int64 serverTime = 6;
+}
+
+// 广播类型
+enum BroadcastType
+{
+  // 无
+  NONET_TYPE = 0;
+}

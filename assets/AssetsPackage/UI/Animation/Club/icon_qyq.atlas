@@ -1,0 +1,76 @@
+
+icon_qyq.png
+size: 545,271
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+di
+  rotate: false
+  xy: 2, 4
+  size: 264, 265
+  orig: 264, 265
+  offset: 0, 0
+  index: -1
+puke01
+  rotate: true
+  xy: 517, 247
+  size: 22, 26
+  orig: 22, 26
+  offset: 0, 0
+  index: -1
+puke02
+  rotate: true
+  xy: 315, 9
+  size: 11, 20
+  orig: 11, 20
+  offset: 0, 0
+  index: -1
+puke03
+  rotate: true
+  xy: 268, 2
+  size: 18, 24
+  orig: 18, 24
+  offset: 0, 0
+  index: -1
+puke04
+  rotate: false
+  xy: 502, 6
+  size: 41, 35
+  orig: 41, 35
+  offset: 0, 0
+  index: -1
+puke05
+  rotate: true
+  xy: 294, 3
+  size: 17, 19
+  orig: 17, 19
+  offset: 0, 0
+  index: -1
+sy_font_qyq
+  rotate: false
+  xy: 403, 7
+  size: 97, 34
+  orig: 97, 34
+  offset: 0, 0
+  index: -1
+sy_qyq_bb
+  rotate: true
+  xy: 409, 43
+  size: 226, 106
+  orig: 226, 106
+  offset: 0, 0
+  index: -1
+sy_qyq_bq
+  rotate: false
+  xy: 268, 22
+  size: 133, 61
+  orig: 133, 61
+  offset: 0, 0
+  index: -1
+sy_qyq_dw
+  rotate: true
+  xy: 268, 85
+  size: 184, 139
+  orig: 184, 139
+  offset: 0, 0
+  index: -1

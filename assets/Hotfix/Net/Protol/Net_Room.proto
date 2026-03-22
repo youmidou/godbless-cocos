@@ -1,0 +1,74 @@
+syntax = "proto3";
+package pb;
+option go_package = "./pb";
+
+//基础房间信息
+message Base_Room_CfgRoomInfo{
+  int32  RoomId =1;//主题Id
+  int32  ThemeType =2;//房间类型0:初级;2:中级;3:高级;
+  string ThemeName =3;//主题名字
+  //string ThemeLevel =4;//房间等级0:初级;2:中级;3:高级;
+  int32  LowestCoinsLimit =5;//最低硬币限制
+  int32  LimitLevel =6;//限制等级
+  int32  IsOpen =7;//是否开启
+}
+
+//获取主题列表
+message Net_Room_GetThemeListReq
+{
+}
+message Net_Room_GetThemeListRet
+{
+  int32 Ret =1;//0:成功;1:失败;
+  repeated Base_Room_CfgRoomInfo RoomInfos = 2; //主题列表
+}
+//----------------------------------------------
+//基础房间信息
+message Base_Room_RoomInfo{
+  int32 RoomId =1;//房间号
+  string HomeownerId =2;//房主userId
+  
+}
+//创建房间
+message Net_Room_CreateRoomReq
+{
+  int32 RoomId =1;//
+
+}
+message Net_Room_CreateRoomRet
+{
+  int32 Ret =1;//0:成功;1:失败;
+  int32 RoomId =2;//
+
+}
+//加入房间
+message Net_Room_JoinRoomReq
+{
+  int32 RoomId =1;//
+}
+message Net_Room_JoinRoomRet
+{
+  int32 Ret =1;//0:成功;1:失败;
+  int32 RoomId =2;//进入房间Id
+}
+//申请解散房间
+message Net_Room_DissolveRoomReq
+{
+}
+message Net_Room_DissolveRoomRet
+{
+  int32 Ret =1;//0:成功;1:失败;
+}
+
+//离开房间
+message Net_Room_LeaveReq
+{
+}
+message Net_Room_LeaveRet
+{
+  int32 Ret =1;//0:成功;1:失败;
+  int32 RoomId =2;//离开房间Id
+}
+
+
+

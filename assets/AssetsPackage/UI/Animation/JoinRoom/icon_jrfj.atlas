@@ -1,0 +1,41 @@
+
+icon_jrfj.png
+size: 367,174
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+di
+  rotate: false
+  xy: 2, 2
+  size: 169, 170
+  orig: 169, 170
+  offset: 0, 0
+  index: -1
+sy_font_jrfj
+  rotate: false
+  xy: 258, 38
+  size: 99, 26
+  orig: 99, 26
+  offset: 0, 0
+  index: -1
+sy_jrfj_bb
+  rotate: true
+  xy: 173, 13
+  size: 159, 83
+  orig: 159, 83
+  offset: 0, 0
+  index: -1
+sy_jrfj_pk
+  rotate: false
+  xy: 258, 2
+  size: 47, 34
+  orig: 48, 34
+  offset: 1, 0
+  index: -1
+sy_jrfj_zd
+  rotate: true
+  xy: 258, 66
+  size: 106, 107
+  orig: 106, 107
+  offset: 0, 0
+  index: -1

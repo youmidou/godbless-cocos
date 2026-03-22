@@ -1,0 +1,10 @@
+{
+  "name": "godbless-cocos",
+  "uuid": "f24769e9-b059-408e-9187-dc566a7f3e46",
+  "creator": {
+    "version": "3.8.8"
+  },
+  "dependencies": {
+    "protobufjs": "^8.0.0"
+  }
+}

@@ -1,0 +1,12 @@
+//总资源 
+AssetsPackage={
+
+	UI={} //首包大厅资源
+	Themes={
+	  Themes10001={} //子游戏包资源
+
+	}
+
+}
+
+Hotfix={} 热更新代码

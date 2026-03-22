@@ -1,0 +1,122 @@
+syntax = "proto3";
+package pb;
+option go_package = "./pb";
+/*
+存储
+*/
+message Base_Auth_GameInfo{
+  string GameId =1;
+  string GameType=2;
+  string GameAddress=3;
+}
+
+/*
+  登录授权服务器协议
+  1:http请求授权登录
+
+*/
+message Net_Auth_LoginReq
+{
+  string  DeviceId = 1;//设备Id
+  string  FacebookId = 2;
+  string  AppleId = 3;//
+  //string  HmsId=4;
+  string FacebookName = 5;
+}
+message Net_Auth_LoginRet
+{
+  int32 Ret =1;//0:登录成功;1:凭据错误;2:重新链接失败;3:跨日;
+  string ErrorMessage=2;//错误代码
+  string AuthToken = 3;//登录凭证 Credential
+  string GameServerAddress =4;//负载均衡后分配-->连接游戏服务器地址
+
+}
+
+message Net_Auth_LogoutReq
+{
+  string AuthToken = 1;  //登录凭证
+}
+message Net_Auth_LogoutRet
+{
+  int32 Ret =1;//0:登出成功;
+}
+//注册
+message Net_Auth_RegisterReq{
+
+}
+message Net_Auth_RegisterRet{
+
+}
+
+
+
+/*
+//Facebook登录
+message Net_Login_FacebookConnectReq
+{
+  string FacebookId = 1;
+  string FacebookName = 2;
+}
+
+//Facebook 登出
+message Net_Login_FacebookLogoutReq
+{
+    string Uuid = 1;
+    string FacebookId = 2;
+    string AppleId = 3;
+    string HmsId = 4;
+}
+message Net_Login_FacebookLogoutRet
+{
+  int32 IdChanged =1;//是否 需要切换账号
+  int32 ReloginWithFacebookOrLocalUser = 2;
+  string Credential =3;//登录凭证
+  int32 FirstLoginReward = 4;//首次登录奖励
+}
+//Facebook设置用户信息
+message Net_Login_FacebookSetUserInfoReq
+{
+  int32 Id =1;
+  string Name = 2;
+  string Email =3;
+}
+message Net_Login_FacebookSetUserInfoRet
+{
+}
+//--------------------------------------------------------
+//apple 登录 check_apple_login
+message Net_Login_AppleLoginReq
+{
+    string AppleId =1;
+    string IdentityToken = 2;   //身份令牌
+    string Email = 3;
+
+}
+message Net_Login_AppleLoginRet
+{
+  string Credential = 1;//凭证
+  int32 IdChanged=2;//是否 身份变更
+  bool InvalidAppleToken=3; //无效令牌
+  string FacebookId =4;
+  string AppleSubId =5;
+  string HmsId =6;
+
+}
+//apple 登出
+message Net_Login_AppleLogoutReq
+{
+  string Uuid = 1;
+  string FacebookId =2;
+  string AppleId =3;
+  string HmsId =4;
+}
+message Net_Login_AppleLogoutRet
+{
+  int32 IdChanged =1;
+  string  Uuid = 2;
+  string FacebookId =3;
+  string AppleId =4;
+
+}
+*/
+

@@ -1,0 +1,1036 @@
+syntax = "proto3";
+package pb;
+option java_package = "ww.protocol";
+/*
+enum ClubReqId
+{
+    Club_REQ_CLUB = 0;
+
+    Club_EnterClub = 9000;//进入俱乐部
+    Club_GetSelfAllClubBlurb = 9001;//获取自己所有俱乐部简介
+    Club_GetClubSetInfo = 9002;//获取俱乐部设置信息
+    Club_EditClubSetInfo = 9003;//编辑俱乐部设置信息
+    Club_GetClubRankRecords = 9004;//获取俱乐部排名记录
+    Club_GetClubRankCent = 9005;//获取俱乐部排名分
+    Club_ModifyClubRankCent = 9006;//修改俱乐部排名积分
+    Club_GetModifyClubMemberCent = 9007;//获取修改俱乐部会员积分
+    Club_ModifyClubMemberCent = 9008;//修改会员积分
+    Club_GetClubMemberCentChangeRecord = 9009;//获取俱乐部会员积分变更记录
+    Club_GetClubMemberGameRecord = 9010;//获取俱乐部会员游戏记录
+    Club_GetClubMemberContributionRecord = 9011;//获取俱乐部会员贡献记录
+    Club_GetClubTeamContributionRecord = 9012;//获取俱乐部球队贡献记录
+    Club_ModifyClubRoomFeeRatioValue = 9013;//修改会所客房费用比率值
+    Club_ModifyClubWarnCent = 9014;//修改俱乐部警告中心
+
+    Club_KickOutClub = 9100;//踢出俱乐部
+    Club_LeaveClub = 9101;//离开俱乐部
+    Club_InviteJoinClub = 9102;//邀请加入俱乐部
+
+    Club_CreateClub = 9200;//创建俱乐部
+    Club_DissloveClub = 9201;//解散俱乐部
+    Club_ChangeClubMemberIdentity = 9203;//更改俱乐部会员身份
+    Club_ApplyJoinClub = 9204;//申请加入俱乐部
+    Club_GetClubMembers = 9205;//获取俱乐部会员
+
+    Club_ClubRoomGetAllRule = 9300;//俱乐部房间获取全部规则
+    Club_ClubRoomCreateRule = 9301;//俱乐部房间创建规则
+    Club_ClubRoomRemoveRule = 9302;//俱乐部房间移除规则
+    Club_ClubRoomSetRuleRoomActive = 9303;//俱乐部房间设置规则室活动
+    Club_ClubRoomCloseClub = 9304;//俱乐部客房 关闭俱乐部
+    //-----todo-----服务器主动推送协议--------
+    Club_ClubRoomBroadcastNewCreateRuleRoom = 9350; //俱乐部房间广播新建创建规则房间
+    Club_ClubRoomBroadcastRemovePauseRuleRoom = 9351;
+    Club_ClubRoomNoticeAllRoom = 9352;
+    Club_BroadcastAddClubRoom = 9353;
+    Club_BroadcastRemoveClubRoom = 9354;
+    Club_BroadcastAddClubRoomPlayer = 9355;
+    Club_BroadcastRemoveClubRoomPlayer = 9356;
+    Club_BroadcastUpdateClubRoomGameNum = 9357;
+    Club_BroadcastClubSetInfo = 9358;
+    Club_BroadcastDissloveClub = 9359;
+    Club_NoticeClubIdentityChange = 9360;
+    Club_NoticeKickedOutClub = 9361;
+    Club_NoticeClubCentChange = 9362;
+}
+*/
+/*
+enum ClubRespId
+{
+    Club_RESP_CLUB = 0;
+
+    //Club_EnterClubReply = 9000;
+    //Club_GetSelfAllClubBlurbReply = 9001;
+    //Club_GetClubSetInfoReply = 9002;
+    //Club_EditClubSetInfoReply = 9003;
+    //Club_GetClubRankRecordsReply = 9004;
+    //Club_GetClubRankCentReply = 9005;
+    //Club_ModifyClubRankCentReply = 9006;
+    //Club_GetModifyClubMemberCentReply = 9007;
+    //Club_ModifyClubMemberCentReply = 9008;
+    //Club_GetClubMemberCentChangeRecordReply = 9009;
+    //Club_GetMemberGameRecordReply = 9010;
+    //Club_GetClubMemberContributionRecordReply = 9011;
+    //Club_GetClubTeamContributionRecordReply = 9012;
+    //Club_ModifyClubRoomFeeRatioValueReply = 9013;
+    //Club_ModifyClubWarnCentReply = 9014;
+
+
+    //Club_KickOutClubReply = 9100;
+    //Club_LeaveClubReply = 9101;
+    //Club_InviteJoinClubReply = 9102;
+
+    //Club_CreateClubReply = 9200;
+    //Club_DissloveClubReply = 9201;
+
+    //Club_ChangeClubMemberIdentityReply = 9203;
+    //Club_ApplyJoinClubReply = 9204;
+    //Club_GetClubMembersReply = 9205;
+
+    //Club_ClubRoomGetAllRuleReply = 9300;
+    //Club_ClubRoomCreateRuleReply = 9301;
+    //Club_ClubRoomRemoveRuleReply = 9302;
+    //Club_ClubRoomSetRuleRoomActiveReply = 9303;
+    //Club_ClubRoomCloseClubReply = 9304;
+
+    //Club_ClubRoomBroadcastNewCreateRuleRoom = 9350;
+    //Club_ClubRoomBroadcastRemovePauseRuleRoom = 9351;
+    //Club_ClubRoomNoticeAllRoom = 9352;
+    //Club_BroadcastAddClubRoom = 9353;
+    //Club_BroadcastRemoveClubRoom = 9354;
+    //Club_BroadcastAddClubRoomPlayer = 9355;
+    //Club_BroadcastRemoveClubRoomPlayer = 9356;
+    //Club_BroadcastUpdateClubRoomGameNum = 9357;
+    //Club_BroadcastClubSetInfo = 9358;
+    //Club_BroadcastDissloveClub = 9359;
+    //Club_NoticeClubIdentityChange = 9360;
+    //Club_NoticeKickedOutClub = 9361;
+    //Club_NoticeClubCentChange = 9362;
+}
+*/
+//-------------------------------------------进入俱乐部--------------------------------------------
+// 进入俱乐部(C -> S)
+message Net_Club_EnterClubReq
+{
+    string key = 1;// 俱乐部唯一标识
+}
+
+// 进入俱乐部(S -> C)
+message Net_Club_EnterClubRet
+{
+    int32 result = 1;// 结果
+    string clubKey = 2;// 俱乐部唯一标识
+    string clubName = 3;// 俱乐部名称
+    int32 zw = 4; // 自身职位(0、馆主 1、管理员+队长 2、管理员+队长 3、队长 10、普通玩家)
+    double cent = 5; // 自身积分
+    string notice = 6;// 公告
+    int32 curatorRoomCardNum = 7;// 馆主房卡数
+}
+
+//-------------------------------------------获取自身所有俱乐部简介--------------------------------------------
+// 俱乐部简介
+message Base_Club_ClubBlurbInfo
+{
+    // 俱乐部唯一标识
+    string key = 1;
+
+    // 俱乐部名称
+    string name = 2;
+
+    // 身份
+    int32 identity = 3;
+
+    // 当前在线人数
+    int32 onlineNum = 4;
+
+    // 俱乐部人数
+    int32 memberNum = 5;
+}
+
+// 获取自身所有俱乐部基础信息(C -> S)
+message Net_Club_GetSelfAllClubBlurbReq
+{
+}
+
+// 获取自身所有俱乐部基础信息(S -> C)
+message Net_Club_GetSelfAllClubBlurbRet
+{
+    repeated Base_Club_ClubBlurbInfo clubs = 1;// 所有俱乐部
+}
+
+//-------------------------------------------俱乐部设置信息--------------------------------------------
+// 俱乐部设置信息
+message Base_Club_ClubSetInfo
+{
+    // 名称
+    string name = 1;
+
+    // 积分
+    double cent = 2;
+
+    // 公告
+    string notice = 3;
+}
+
+// 获取俱乐部设置信息(C -> S)
+message Net_Club_GetClubSetInfoReq
+{
+}
+
+// 获取俱乐部设置信息(S -> C)
+message Net_Club_GetClubSetInfoRet
+{
+    int32 result = 1;// 结果
+    Base_Club_ClubSetInfo info = 2;// 设置信息
+}
+
+// 编辑俱乐部设置信息(C -> S)
+message Net_Club_EditClubSetInfoReq
+{
+    Base_Club_ClubSetInfo info = 1;// 设置信息
+}
+
+// 编辑俱乐部设置信息(S -> C)
+message Net_Club_EditClubSetInfoRet
+{
+    int32 result = 1; // 结果
+    Base_Club_ClubSetInfo info = 2;// 设置信息
+    double carryCent = 3;// 携带积分
+}
+
+//-------------------------------------------保险柜--------------------------------------------
+// 保险柜记录
+message ClubRankRecord
+{
+    // 操作积分(+存 -取)
+    double operateCent = 1;
+
+    // 总积分
+    double totalCent = 2;
+
+    // 时间戳
+    int32 time = 3;
+}
+
+// 获取保险柜记录(C -> S)
+message Net_Club_GetClubRankRecordsReq
+{
+}
+
+// 获取保险柜记录(S -> C)
+message Net_Club_GetClubRankRecordsRet
+{
+    int32 result = 1; // 结果
+    repeated ClubRankRecord records = 2;// 记录信息
+}
+
+// 获取保险积分(C -> S)
+message Net_Club_GetClubRankCentReq
+{
+}
+
+// 获取保险积分(S -> C)
+message Net_Club_GetClubRankCentRet
+{
+    int32 result = 1;// 结果
+    double carryCent = 2;// 携带积分
+    double bankCent = 3;// 保险柜积分
+}
+
+// 修改保险积分(C -> S)
+message Net_Club_ModifyClubRankCentReq
+{
+    // 操作积分(+存 -取)
+    string cent = 1;
+}
+
+// 修改保险积分(S -> C)
+message Net_Club_ModifyClubRankCentRet
+{
+    // 结果
+    int32 result = 1;
+
+    // 携带积分
+    double carryCent = 2;
+
+    // 保险柜积分
+    double bankCent = 3;
+}
+
+//-------------------------------------------馆长、管理员、队长修改积分--------------------------------------------
+// 获取修改前积分信息(C -> S)
+message Net_Club_GetModifyClubMemberCentReq
+{
+    // 目标玩家唯一标识
+    string targetPpk = 1;
+}
+
+// 获取修改前积分信息(S -> C)
+message Net_Club_GetModifyClubMemberCentRet
+{
+    // 结果
+    int32 result = 1;
+    
+    // 自身积分
+    double selfCent = 2;
+
+    // 目标玩家唯一标识
+    string targetPpk = 3;
+
+    // 目标玩家头像地址
+    string targetAvatorUrl = 4;
+
+    // 目标玩家昵称
+    string targetNickName = 5;
+
+    // 目标玩家积分
+    double targetCent = 6;
+}
+
+// 修改成员积分(C -> S)
+message Net_Club_ModifyClubMemberCentReq
+{
+    // 目标玩家唯一标识
+    string ppk = 1;
+
+    // 修改值(> 0 目标玩家增加 < 0目标玩家减少 = 0设置为0)
+    string changeCent = 2;
+}
+
+// 修改成员积分(S -> C)
+message Net_Club_ModifyClubMemberCentRet
+{
+    // 结果
+    int32 result = 1;
+    
+    // 自身积分
+    double selfCent = 2;
+
+    // 目标玩家积分
+    double targetCent = 6;
+}
+
+// 成员积分变化记录
+message Base_Club_ClubMemberCentChangeRecord
+{
+    // 操作者唯一标识
+    string operatePpk = 1;
+
+    // 操作者头像地址
+    string operateAvatorUrl = 2;
+
+    // 操作者昵称
+    string operateNickName = 3;
+
+    // 对象唯一标识
+    string targetPpk = 4;
+
+    // 对象头像地址
+    string targetAvatorUrl = 5;
+
+    // 对象昵称
+    string targetNickName = 6;
+
+    // 改变积分
+    double changeCent = 7;
+
+    // 总积分
+    double totalCent = 8;
+
+    // 事件类型(1、加减分 2、退出 3、踢出 4、房费分成 5、保底分成 6、保底  7、系统)
+    int32 eventType = 9;
+
+    // 时间戳
+    int32 time = 10;
+}
+
+// 获取积分变化记录(C -> S)
+message Net_Club_GetClubMemberCentChangeRecordReq
+{
+    // 类型(1、积分变化 2、分成)
+    int32 type = 1;
+
+    // 当前页数(从1开始)
+    int32 page = 2;
+
+    // 每页显示最大条数
+    int32 perPageMax = 3;
+}
+
+// 获取积分变化记录(S -> C)
+message Net_Club_GetClubMemberCentChangeRecordRet
+{
+    // 结果
+    int32 result = 1;
+
+    // 类型
+    int32 type = 2;
+
+    // 总记录数
+    int32 total = 3;
+
+    // 记录集合
+    repeated Base_Club_ClubMemberCentChangeRecord records = 4;
+}
+
+//-------------------------------------------战绩--------------------------------------------
+// 获取俱乐部成员战绩记录(C -> S)
+message Net_Club_GetClubMemberGameRecordReq
+{
+    // 目标玩家唯一标识(未空代表是自己)
+    string targetPpk = 1;
+
+    // 当前页数(从1开始)
+    int32 page = 2;
+
+    // 每页显示最大条数
+    int32 perPageMax = 3;
+}
+
+//-------------------------------------------成员贡献记录--------------------------------------------
+// 成员贡献记录
+message Base_Club_ClubMemberContributionRecord
+{
+    // 唯一标识
+    string ppk = 1;
+
+    // 头像地址
+    string avatorUrl = 2;
+
+    // 昵称
+    string nickName = 3;
+
+    // 局数
+    int32 gameNum = 4;
+
+    // 贡献
+    double contribution = 5;
+
+    // 个人总积分
+    double personTotalCent = 6;
+
+    // 预警值
+    int32 warningValue = 7;
+
+    // 职位
+    int32 identity = 8;
+}
+
+// 获取俱乐部成员贡献记录(C -> S)
+message Net_Club_GetClubMemberContributionRecordReq
+{
+    // 当前页数(从1开始)
+    int32 page = 1;
+
+    // 每页显示最大条数
+    int32 perPageMax = 2;
+
+    // 类型(1、天  2、周)
+    int32 type = 3;
+
+    // 每天或每周凌点时间
+    int32 zeroTime = 4;
+}
+
+// 获取俱乐部成员贡献记录(S -> C)
+message Net_Club_GetClubMemberContributionRecordRet
+{
+    // 结果
+    int32 result = 1;
+
+    // 总记录数
+    int32 total = 2;
+
+    // 记录集合
+    repeated Base_Club_ClubMemberContributionRecord records = 3;
+}
+
+//-------------------------------------------队长贡献记录--------------------------------------------
+// 队长贡献记录
+message Base_Club_ClubTeamContributionRecord
+{
+    // 唯一标识
+    string ppk = 1;
+
+    // 头像地址
+    string avatorUrl = 2;
+
+    // 昵称
+    string nickName = 3;
+
+    // 局数
+    int32 gameNum = 4;
+
+    // 贡献
+    double contribution = 5;
+
+    // 个人总积分
+    double personTotalCent = 6;
+
+    // 团队总积分
+    double teamTotalCent = 7;
+
+    // 当前人数
+    int32 onlineNum = 8;
+
+    // 最大人数
+    int32 maxNum = 9;
+
+    // 预警值
+    int32 warningValue = 10;
+
+    // 房费比例值
+    int32 roomFeeRatioValue = 11;
+
+    // 职位
+    int32 identity = 12;
+}
+
+// 获取俱乐部队长贡献记录(C -> S)
+message Net_Club_GetClubTeamContributionRecordReq
+{
+    // 当前页数(从1开始)
+    int32 page = 1;
+
+    // 每页显示最大条数
+    int32 perPageMax = 2;
+
+    // 类型(1、天  2、周)
+    int32 type = 3;
+
+    // 每天或每周凌点时间
+    int32 zeroTime = 4;
+}
+
+// 获取俱乐部队长贡献记录(S -> C)
+message Net_Club_GetClubTeamContributionRecordRet
+{
+    // 结果
+    int32 result = 1;
+
+    // 总记录数
+    int32 total = 2;
+
+    // 记录集合
+    repeated Base_Club_ClubTeamContributionRecord records = 3;
+}
+
+//-------------------------------------------申请加入俱乐部--------------------------------------------
+// 申请加入俱乐部(C -> S)
+message Net_Club_ApplyJoinClubReq
+{
+    // 俱乐部唯一标识
+    string key = 1;
+}
+
+// 申请加入俱乐部(S -> C)
+message Net_Club_ApplyJoinClubRet
+{
+    // 结果
+    int32 result = 1;
+}
+
+//-------------------------------------------修改俱乐部成员身份--------------------------------------------
+// 修改俱乐部成员身份(C -> S)
+message Net_Club_ChangeClubMemberIdentityReq
+{
+    // 玩家唯一标识
+    string ppk = 1;
+
+    // 原身份
+    int32 oidentity = 2;
+
+    // 新身份
+    int32 nidentity = 3;
+}
+
+// 修改俱乐部成员身份(S -> C)
+message Net_Club_ChangeClubMemberIdentityRet
+{
+    // 结果
+    int32 result = 1;
+
+    // 新身份
+    int32 identity = 2;
+}
+
+//-------------------------------------------创建俱乐部--------------------------------------------
+// 创建俱乐部(C -> S)
+message Net_Club_CreateClubReq
+{
+    // 俱乐部名称
+    string name = 1;
+}
+
+// 创建俱乐部(S -> C)
+message Net_Club_CreateClubRet
+{
+    // 结果
+    int32 result = 1;
+}
+
+//-------------------------------------------解散俱乐部--------------------------------------------
+// 解散俱乐部(C -> S)
+message Net_Club_DissloveClubReq
+{
+}
+
+// 解散俱乐部(S -> C)
+message Net_Club_DissloveClubRet
+{
+    // 俱乐部唯一标识
+    string key = 1;
+
+    // 结果
+    int32 result = 2;
+}
+
+//-------------------------------------------踢出俱乐部--------------------------------------------
+// 踢出俱乐部(C -> S)
+message Net_Club_KickOutClubReq
+{
+    // 被踢出者唯一标识
+    string targetPpk = 1;
+}
+
+// 踢出俱乐部(S -> C)
+message Net_Club_KickOutClubRet
+{
+    // 结果
+    int32 result = 1;
+
+    // 总积分
+    double totalCent = 2;
+}
+
+//-------------------------------------------离开俱乐部--------------------------------------------
+// 离开俱乐部(C -> S)
+message Net_Club_LeaveClubReq
+{
+}
+
+// 离开俱乐部(S -> C)
+message Net_Club_LeaveClubRet
+{
+    // 结果
+    int32 result = 1;
+}
+
+//-------------------------------------------邀请加入俱乐部--------------------------------------------
+// 邀请加入俱乐部(C -> S)
+message Net_Club_InviteJoinClubReq
+{
+    // 邀请加入者唯一标识
+    string ppk = 1;
+}
+
+// 邀请加入俱乐部(S -> C)
+message Net_Club_InviteJoinClubRet
+{
+    // 结果
+    int32 result = 1;
+}
+
+//-------------------------------------------获取俱乐部成员--------------------------------------------
+// 俱乐部成员信息
+message Base_Club_ClubMemberInfo
+{
+    // 自身唯一标识
+    string selfPpk = 1;
+
+    // 自身头像地址
+    string selfAvatorUrl = 2;
+
+    // 自身昵称
+    string selfNickName = 3;
+
+    // 上级唯一标识
+    string parentPpk = 4;
+
+    // 上级头像地址
+    string parentAvatorUrl = 5;
+
+    // 上级昵称
+    string parentNickName = 6;
+
+    // 身份
+    int32 level = 7;
+
+    // 积分
+    double cent = 8;
+}
+
+// 获取俱乐部成员(C -> S)
+message Net_Club_GetClubMembersReq
+{
+    // 当前页数(从1开始)
+    int32 page = 1;
+
+    // 每页显示最大条数
+    int32 perPageMax = 2;
+}
+
+// 获取俱乐部成员(S -> C)
+message Net_Club_GetClubMembersRet
+{
+    // 结果
+    int32 result = 1;
+
+    // 总成员数
+    int32 total = 2;
+
+    // 成员信息集合
+    repeated Base_Club_ClubMemberInfo members = 3;
+}
+
+//-------------------------------------------修改房费值--------------------------------------------
+// 修改房费值(C -> S)
+message Net_Club_ModifyClubRoomFeeRatioValueReq
+{
+    // 目标玩家唯一标识
+    string ppk = 1;
+    // 房费比例值
+    int32 roomFeeRatioValue = 2;
+}
+
+// 修改房费值(S -> C)
+message Net_Club_ModifyClubRoomFeeRatioValueRet
+{
+    // 结果
+    int32 result = 1;
+    // 房费比例值
+    int32 roomFeeRatioValue = 2;
+}
+
+//-------------------------------------------修改预警值--------------------------------------------
+// 修改预警值(C -> S)
+message Net_Club_ModifyClubWarnCentReq
+{
+    // 目标玩家唯一标识
+    string ppk = 1;
+    // 预警值
+    int32 warningValue = 2;
+}
+
+// 修改预警值(S -> C)
+message Net_Club_ModifyClubWarnCentRet
+{
+    // 结果
+    int32 result = 1;
+    // 预警值
+    int32 warningValue = 2;
+}
+
+//-------------------------------------------俱乐部房间--------------------------------------------
+// 房费收取条件
+message Base_Club_ClubRoomFeeCondition
+{
+    // 起始征收
+    double minWin = 1;
+
+    // 消耗
+    double cost = 2;
+
+    // 保底
+    double bd = 3;
+}
+
+// 房费规则
+message Base_Club_ClubRoomFeeRule
+{
+    // 收取对象(1、所有赢家 2、大赢家 3、前二赢家 4、前三赢家)
+    int32 type = 1;
+
+    // 房费收取规则
+    repeated Base_Club_ClubRoomFeeCondition conditions = 2;
+}
+
+// 模版房间
+message Base_Club_ClubRoomRuleRoom
+{
+    // 唯一标识
+    int32 uid = 1;
+
+    // 游戏类型
+    int32 gameType = 2;
+
+    // 房间名称
+    string name = 3;
+
+    // 规则ID集合
+    repeated int32 ruleIds = 4;
+
+    // 房费规则
+    Base_Club_ClubRoomFeeRule rule = 5;
+
+    // 开桌数
+    int32 createdRoomNum = 6;
+
+    // 是否激活
+    bool isActive = 7;
+
+    // 底注
+    double baseNum = 8;
+
+    // 入场分
+    double enterNum = 9;
+
+    // 离场分
+    double leaveNum = 10;
+
+    // 房间最大人数
+    int32 maxMemberNum = 11;
+}
+
+// 获取俱乐部所有房间模版规则(C -> S)
+message Net_Club_ClubRoomGetAllRuleReq
+{
+}
+
+// 创建俱乐部房间模版规则(S -> C)
+message Net_Club_ClubRoomGetAllRuleRet
+{
+    // 结果
+    int32 result = 1;
+
+    // 房间集合
+    repeated Base_Club_ClubRoomRuleRoom ruleRooms = 2;
+}
+
+// 创建俱乐部房间模版规则(C -> S)
+message Net_Club_ClubRoomCreateRuleReq
+{
+    // 地区
+    int32 area = 1;
+
+    // 房间规则
+    Base_Club_ClubRoomRuleRoom ruleRoom = 2;
+}
+
+// 创建俱乐部房间模版规则(S -> C)
+message Net_Club_ClubRoomCreateRuleRet
+{
+    // 结果
+    int32 result = 1;
+}
+
+// 删除俱乐部房间模版规则(C -> S)
+message Net_Club_ClubRoomRemoveRuleReq
+{
+    // 唯一标识
+    int32 uid = 1;
+}
+
+// 删除俱乐部房间模版规则(S -> C)
+message Net_Club_ClubRoomRemoveRuleRet
+{
+    // 结果
+    int32 result = 1;
+}
+
+// 设置规则模版房间激活状态(C -> S)
+message Net_Club_ClubRoomSetRuleRoomActiveReq
+{
+    // 唯一标识
+    int32 uid = 1;
+    // 是否开启
+    bool isActive = 2;
+}
+
+// 设置规则模版房间激活状态(S -> C)
+message Net_Club_ClubRoomSetRuleRoomActiveRet
+{
+    // 结果
+    int32 result = 1;
+}
+
+// 关闭俱乐部(C -> S)
+message Net_Club_ClubRoomCloseClubReq
+{
+}
+
+// 关闭俱乐部(S -> C)
+message Net_Club_ClubRoomCloseClubRet
+{
+    // 结果
+    int32 result = 1;
+}
+
+// 广播新创建规则房间(S -> C)
+message Net_Club_ClubRoomBroadcastNewCreateRuleRoomRet
+{
+    // 规则房间
+    Base_Club_ClubRoomRuleRoom ruleRoom = 1;
+}
+
+// 广播开启或关闭规则房间(S -> C)
+message Net_Club_ClubRoomBroadcastRemovePauseRuleRoomRet
+{
+    // 俱乐部标识
+    string clubKey = 1;
+
+    // 唯一标识
+    int32 uid = 2;
+
+    // 类型(1、移除 2、禁用)
+    int32 type = 3;
+}
+
+// 俱乐部房间玩家
+message Base_Club_ClubRoomRole
+{
+    // 玩家唯一标识
+    string ppk = 1;
+
+    // 头像url
+    string headUrl = 2;
+
+    // 昵称
+    string nickName = 3;
+
+    // 位置下标
+    int32 index = 4;
+}
+
+// 俱乐部房间
+message Base_Club_ClubRoom
+{
+    // 玩家集合
+    repeated Base_Club_ClubRoomRole roles = 1;
+
+    // 规则模版房间唯一标识
+    int32 ruleRoomUid = 2;
+
+    // 房间id
+    int32 roomUid = 3;
+
+    // 当前局数
+    int32 gameNum = 4;
+
+    // 最大局数
+    int32 maxGameNum = 5;
+}
+
+// 通知玩家所有的房间
+message Net_Club_ClubRoomNoticeAllRoomRet
+{
+    // 俱乐部标识
+    string clubKey = 1;
+
+    // 实例房间集合
+    repeated Base_Club_ClubRoom rooms = 2;
+}
+
+// 广播新增俱乐部房间
+message Net_Club_BroadcastAddClubRoomRet
+{
+    // 俱乐部标识
+    string clubKey = 1;
+
+    // 实例房间
+    Base_Club_ClubRoom rooms = 2;
+}
+
+// 广播移除俱乐部房间
+message Net_Club_BroadcastRemoveClubRoomRet
+{
+    // 俱乐部标识
+    string clubKey = 1;
+
+    // 房间uid
+    int32 uid = 2;
+}
+
+// 广播新增俱乐部房间玩家
+message Net_Club_BroadcastAddClubRoomPlayerRet
+{
+    string clubKey = 1;// 俱乐部标识
+    int32 uid = 2;// 房间uid
+    Base_Club_ClubRoomRole roomRole = 3; // 玩家
+}
+
+// 广播移除俱乐部玩家
+message Net_Club_BroadcastRemoveClubRoomPlayerRet
+{
+    // 俱乐部标识
+    string clubKey = 1;
+
+    // 房间uid
+    int32 uid = 2;
+
+    // 玩家唯一标识
+    string ppk = 3;
+}
+
+// 广播更新俱乐部房间局数
+message Net_Club_BroadcastUpdateClubRoomGameNumRet
+{
+    // 俱乐部标识
+    string clubKey = 1;
+
+    // 房间uid
+    int32 uid = 2;
+
+    // 当前局数
+    int32 gameNum = 3;
+}
+
+//-------------------------------------------广播设置信息--------------------------------------------
+// 广播设置信息(S -> C)
+message Net_Club_BroadcastClubSetInfoRet
+{
+    // 俱乐部key
+    string clubKey = 1;
+
+    // 名称
+    string name = 2;
+
+    // 积分
+    double cent = 3;
+
+    // 公告
+    string notice = 4;
+}
+
+//-------------------------------------------广播解散俱乐部--------------------------------------------
+// 广播解散俱乐部(S -> C)
+message Net_Club_BroadcastDissloveClubRet
+{
+    // 俱乐部key
+    string clubKey = 1;
+}
+
+//-------------------------------------------通知职位变化--------------------------------------------
+// 通知职位变化(S -> C)
+message Net_Club_NoticeClubIdentityChangeRet
+{
+    // 俱乐部key
+    string clubKey = 1;
+
+    // 身份
+    int32 identity = 2;
+}
+
+//-------------------------------------------通知被踢出俱乐部--------------------------------------------
+// 通知被踢出俱乐部(S -> C)
+message Net_Club_NoticeKickedOutClubRet
+{
+    // 俱乐部key
+    string clubKey = 1;
+
+    // 昵称
+    string nickName = 2;
+}
+
+//-------------------------------------------通知积分变化--------------------------------------------
+// 通知积分变化(S -> C)
+message Net_Club_NoticeClubCentChangeRet
+{
+    // 俱乐部key
+    string clubKey = 1;
+
+    // 携带积分
+    double carryCent = 2;
+
+    // 保险柜积分
+    double bankCent = 3;
+}

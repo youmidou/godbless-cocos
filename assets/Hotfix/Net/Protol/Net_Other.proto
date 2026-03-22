@@ -1,0 +1,14 @@
+syntax = "proto3";
+package pb;
+option go_package = "./pb";
+/*
+	玩家->Other
+
+added by yh @ 2024/01/26 14:36
+注意:
+*/
+//
+message Base_Other_xxxx{
+    int32 Id =1;//物品Id
+    int32 BuyNum =2;//已经购买数量
+}

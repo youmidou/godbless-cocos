@@ -1,0 +1,33 @@
+{
+  "ver": "1.0.6",
+  "importer": "bitmap-font",
+  "imported": true,
+  "uuid": "49dcdaaf-0d11-46ef-9c39-862bdf1d97f8",
+  "files": [
+    ".json"
+  ],
+  "subMetas": {},
+  "userData": {
+    "_fntConfig": {
+      "commonHeight": 33,
+      "fontSize": 33,
+      "atlasName": "fnt_syps.png",
+      "fontDefDictionary": {
+        "110": {
+          "rect": {
+            "x": 252,
+            "y": 0,
+            "width": 26,
+            "height": 33
+          },
+          "xOffset": 0,
+          "yOffset": 0,
+          "xAdvance": 26
+        }
+      },
+      "kerningDict": {}
+    },
+    "fontSize": 33,
+    "textureUuid": "475367c1-26b6-4496-b630-4d1c6db54bf2"
+  }
+}

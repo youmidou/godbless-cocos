@@ -1,0 +1,154 @@
+syntax = "proto3";
+package pb;
+option go_package = "./pb";
+
+/*
+//消息头id
+added by yh @ 2023/08/25 14:09
+注意:协议规则 协议号/1000 为模块id 取余为消息号  纠结了很久 最终还是坚持
+Cmd.Entry_Login //本是Cmd.Entry_Login 这样的 代表登录模块的-登录消息 无赖C# PB不支持枚举下划线
+Net_Entry_LoginReq //客户端请求格式  通信_模块_消息名字Req
+Net_Entry_LoginRet //服务器返回格式  通信_模块_消息名字Ret
+
+//C#客户端 把To看做下划线使用 Cmd.Entry_Login --> Cmd.Entry_Login
+GameNet.Instance.RegisterProtocolHandler(Cmd.Entry_Login,ProtocolLoginHandler);
+private void ProtocolLoginHandler(MsgPendingData msg_data){
+    Net_Entry_LoginRet data = Net_Entry_LoginRet.Parser.ParseFrom(msg_data.data_bytes);
+}
+ProtocolVersion =1;//协议版本号
+Auth_FacebookLogin = 3;
+Auth_FacebookLogout = 4;
+Auth_AppleLogin = 5;
+Auth_AppleLogout = 6;
+*/
+enum Cmd {
+  CmdIdle = 0; //空置占位没用
+  //----http--登录服务器--负载均衡
+  //Auth_Login =1;//登录
+  //Auth_Logout= 2;//登出
+  //login 1001  msgid /1000
+  Login_Error = 1001000;//错误消息
+  Login_Login = 1001001;//登录游戏
+  Login_Logout= 1001002;//退出游戏
+  Login_KeepAlive = 1001003;//heartbeat 心跳包
+  Login_Reconnect = 1001004;//断线重新连接
+  Login_FacebookSetUserInfo = 1001007;//Facebook设置用户信息
+  Login_CollectFacebookReward = 1001008; //fb登录奖励
+  Login_MultiUserLogin = 1001011;//多用户登录
+
+  //进入大厅----1003------------------------------
+  Lobby_UpdateMoneyInfo=21;//玩家钱包更新
+  Lobby_ChangeName=32;//更换名字
+  Lobby_GetThemeList =1002004;//获取主题列表
+  Lobby_VipNewRule =1003007;//VIP规则
+  Lobby_RateUs =1003008; //评价我们
+  Lobby_GetRanking =1003009;//排行榜
+  Lobby_LuckyWheel =1003003;//幸运大转盘
+  //进入小游戏
+  Lobby_EnterStampGame =1003010;
+  Lobby_CollectLoginBonus =1003011;//收集登录奖励
+  Lobby_ReissueLoginBonus =1003012;//补签登录奖励
+  Lobby_GetDailyBonus =1003015;//获取每日奖励
+  Lobby_CollectDailyBonus =1003016;//收集每日奖励
+/*
+  Theme_EnterTheme=1004001;//进入主题
+  Theme_LeaveTheme=343;//离开主题
+  Theme_GetThemeSceneInfo=3432;//获取主题场景信息
+  Theme_Spin=111;
+  Theme_BatchSpin=1112;//批量旋转处理器
+*/
+  //----公共房间--1004--------------------------
+  /*
+  Room_CreateRoom =1004001;//创建房间
+  Room_JoinRoom =1004002;//加入房间
+  Room_DissolveRoom = 2002;//申请解散房间 --todo--协议号冲突
+  Room_AgreeOrRefuseDissolveRoom = 2003;//同意、拒绝解散房间
+  Room_UpdateGPS = 2004;//更新GPS
+  Room_NoticeRoleOnlineStatus = 2050;//玩家上线、下线通知
+  Room_NoticeRoleLeaveRoom = 2051;//玩家离开房间通知
+  Room_NoticeRemoveCuratorRoom = 2052;//移除代开房间通知
+  Room_NoticeCuratorCreateRoomSucce = 2053;//通知馆长创建房间
+  Room_NoticeCreateRoomDecrRoomCard = 2054;//创建房间扣除房卡通知
+  Room_NoticeRoomCreateOrJoinSpeData = 2055;//通知玩家房间特定信息
+  Room_NoticeNewMemberJoinRoom = 2056;//通知房间中的玩家有新玩家加入
+  //Room_NoticeNewMemberJoinRoomRoleSpeData = 2057;//通知玩家玩家特定信息
+  Room_NoticeCuratorNewMemberJoinRoom = 2058;//通知馆长玩家加入代开房间
+  Room_RoomStatusNotice = 2059;//通知房间状态
+  Room_NoticeModifyApplyDissolveRoom = 2060;//变更申请解散房间通知
+  Room_CreatorDissolveRoomNotice = 2061;//通知房间玩家房主解散房间
+  Room_NoticeApplyDissolveRoom = 2062;//申请解散房间通知
+  Room_PlayerLeaveRoomNotice = 2063;//玩家离开房间通知
+  Room_RoomBalanceNotice = 2064;//结算通知
+  Room_DissolveRoomResultNotice = 2065;//申请解散房间结果通知
+  Room_FlushRoomRoleSpeDataNotice = 2066;//刷新房间特定数据
+  Room_QuitRoom = 2067;//退出房间
+*/
+  Room_GetThemeList=10040011;//
+  Room_CreateRoom =1004001;//创建房间
+  Room_JoinRoom=1004002;//加入房间
+  Room_DissolveRoom=1004004;//申请解散房间
+  Room_Leave=1004005;//离开房间
+  Room_NoticeNewMemberJoinRoom=1004006;//通知角色进入房间
+  Room_NoticeRoleLeaveRoom=1004007;//通知角色离开房间
+  Room_NoticeRoleOnline=1004003;//玩家离线
+  Room_QuitRoom = 1004008;//退出房间
+  //----------------------------------------
+  ZJH_CreateRoom =1005001;//创建房间
+  ZJH_JoinRoom=1005002;//加入房间
+  ZJH_LeaveRoom=1005003;//离开房间
+  ZJH_GetRoomInfo=1005004;//获取场景房间信息,断线重新连接也是这里
+  ZJH_RoleGoldChange=1005005;//角色金币更新
+
+  ZJH_Ready =1005007;//准备
+  ZJH_StartGame=1005009;//游戏中
+  ZJH_KanPai=1005010;//看牌
+  ZJH_BiPai=1005011;//比牌
+  ZJH_JiaZhu=1005012;//加注
+  ZJH_GenZhu=1005013;//跟注
+  ZJH_NextOperator=1005014;//跟注
+  //-------玩家活动-----1006---------------------------------------------------------
+  Activity_UpdateActivity =1006001;//更新活动
+  Activity_ReceiveFireDragonTreasureRewards = 1006002;//领取火龙宝藏奖励
+  Activity_UpdateAdsUserType =1006003;//更新广告用户类型 (废弃)
+  //-------任务------------------------------------------------------------------
+  Task_UpdateTask =1007001;//任务有变化主动推送任务更新内容信息
+  Task_UpdateCupTask=1007002;//更新奖杯任务
+  Task_GetCupTask =1007003;//领取奖杯任务奖励
+  Task_ReceiveCupTaskAward =1007004;//领取奖杯任务奖励
+  Task_ReceiveTaskReward = 1007005;//领取任务奖励
+  //-------商店--------------------------------------------------------------
+  Shop_GetShopInfo=1008001;//商店信息
+  Shop_BuyItem = 1008002;//购买商品
+  Shop_Pay = 1008003;//支付
+  //Shop_Collect = 1003005;//商店购买收集
+  //Shop_CollectLuckyStars = 1003003;//收集幸运星
+  //Shop_CollectBonus = 1003004;//收集奖励
+  //Shop_CollectPromotionPickBonus =1003005;//收集促销精选奖金
+
+  //------收件箱-----------------------------------------------------
+  Inbox_UpdateItemsInfo = 1009001;//主动更新
+  Inbox_SendEmail = 1009002;//发送邮件
+  Inbox_DeleteEmail = 1009003;//删除邮件
+  Inbox_ClaimRewardGifts = 1009004;//收件箱->领取奖励礼物
+
+  Lobby_GetFcmRewards =1009005;
+  Lobby_CollectFcmRewards =1009006;
+  Collect_WelcomeBack =1009007;//收集系统
+
+  //------新手引导--------------------------------------------------------
+  Guide_MarkComplete =1010001; //当前任务引导完成
+  //Guide_NextStep =1010002;
+  //------广告--------------------------------------------------------
+  Ads_GetAdsTasks =1011001;//获取广告任务
+  Ads_CollectAdsReward = 1011002;//收集广告奖励
+
+  //-------通行证功能模块------------------------------------------------------------------
+  PassCheck_UpdateItemsInfo = 1012001; //主动更新
+  PassCheck_ClaimReward = 1012002; //领取奖励
+  PassCheck_Buy = 1012003; //购买
+  //PassCheck_GetPassCheckInfo = 1012004; //
+
+  //------Slots--------------------------------------------------------
+  Slots_Spin =1021001; //Spin
+
+}

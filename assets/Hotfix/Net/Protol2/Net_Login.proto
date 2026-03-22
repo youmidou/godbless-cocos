@@ -1,0 +1,124 @@
+﻿syntax = "proto3";
+package pb;
+option java_package = "ww.protocol";
+
+// 角色数据
+message Base_Login_RoleDataInfo
+{
+  // 玩家唯一标识
+  string ppk = 1;
+  // 昵称
+  string nickName = 2;
+  // 头像URL
+  string headUrl = 3;
+  // 属性
+  map<string,int32> propertys = 4;
+}
+
+//心跳包
+message Net_Login_KeepAliveReq{
+}
+message Net_Login_KeepAliveRet{
+}
+// C -> S 登录
+message Net_Login_LoginReq
+{
+  // 渠道编号(默认"1")
+  string agent = 1;
+  // 用户名
+  string userName = 2;
+  // 密码
+  string passWord = 3;
+  // 服务器编号(默认1)
+  int32 serverId = 4;
+  // 设备码
+  string deviceCode = 5;
+  // 登录类型(1、微信 2、电话)
+  int32 type = 6;
+  // 扩展(json格式 为微信时传此值{"nickName":"xxx","avatorUrl":"yyy"})
+  string ext = 7;
+  // 验证码(电话号码注册时传此值)
+  string verifyCode = 8;
+}
+
+// S -> C 登录回复
+message Net_Login_LoginRet
+{
+  int32 result = 1;// 登录结果(< 0失败 否则成功)
+  string ppk = 2;  // 玩家唯一标识
+}
+
+// S -> C 广播玩家自身数据 PlayerInfo
+message Net_Login_PlayerInfoRet
+{
+  string userName = 1;// 用户名
+  optional string reconnectKey = 2; // 重连标识
+  int32 serverTime = 3;// 当前服务器时间戳
+  Base_Login_RoleDataInfo roleData = 4; // 角色数据
+  string ip = 5; // IP
+  int32 freezeRoomCardNum =6; // 冻结房卡数
+  int32 roomID = 7;// roomId
+  string clubKey = 8;// 当前俱乐部唯一标识
+  repeated int32 loginTypes = 9;// 所有已存在的登录类型
+}
+
+// C -> S 重连
+message Net_Login_ReconnectReq
+{
+  string ppk = 1; // 玩家唯一标识
+  string token = 2;// 令牌
+  int32 code = 3;// 客户端已接收到服务器的消息编号
+}
+
+// S -> C 重连回复
+message Net_Login_ReconnectRet
+{
+  int32 result = 1;// 结果
+  int32 code = 2;// 服务器已接收到客户端的消息编号
+}
+
+// 绑定账号
+message Net_Login_BindUserReq
+{
+    int32 type = 1;// 类型(1、微信  2、电话)
+    string userName = 2;// userName
+    string ext = 3;// 扩展
+    string verifyCode = 4;// 验证码(电话号码注册时传此值)
+    string passWord = 5;// 新密码
+}
+
+// 绑定账号
+message Net_Login_BindUserRet
+{
+    int32 result = 1; // result
+}
+
+// 发送短信
+message Net_Login_SendSmsReq
+{
+    string phone = 1;// 电话号码
+}
+
+// 发送短信
+message Net_Login_SendSmsRet
+{
+    int32 result = 1;// result
+}
+
+// 重置密码
+message Net_Login_ResetPassWordReq
+{
+    // 电话号码
+    string phone = 1;
+    // 验证码
+    string verifyCode = 2;
+    // 新密码
+    string passWord = 3;
+}
+
+// 重置密码
+message Net_Login_ResetPassWordRet
+{
+    // result
+    int32 result = 1;
+}

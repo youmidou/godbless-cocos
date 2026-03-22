@@ -1,0 +1,33 @@
+{
+  "ver": "1.0.6",
+  "importer": "bitmap-font",
+  "imported": true,
+  "uuid": "650c25cd-f8f0-47fa-826d-5d56bb4aade8",
+  "files": [
+    ".json"
+  ],
+  "subMetas": {},
+  "userData": {
+    "_fntConfig": {
+      "commonHeight": 67,
+      "fontSize": 67,
+      "atlasName": "fnt_ssz.png",
+      "fontDefDictionary": {
+        "110": {
+          "rect": {
+            "x": 1050,
+            "y": 0,
+            "width": 68,
+            "height": 67
+          },
+          "xOffset": 0,
+          "yOffset": 0,
+          "xAdvance": 68
+        }
+      },
+      "kerningDict": {}
+    },
+    "fontSize": 67,
+    "textureUuid": "09c2a71b-9001-4575-ac91-2bcd710c137e"
+  }
+}

@@ -1,0 +1,421 @@
+syntax = "proto3";
+package pb;
+option java_package = "ww.protocol";
+
+////////////////////////////////////消息定义start////////////////////////////
+/*
+enum RoomMsgId
+{
+  Room_NONE = 0;//proto3要求首个枚举值必须为0
+
+  Room_CreateRoom = 2000;//创建房间
+  Room_JoinRoom = 2001;//加入房间
+  Room_DissolveRoom = 2002;//申请解散房间
+  Room_AgreeOrRefuseDissolveRoom = 2003;//同意、拒绝解散房间
+  Room_UpdateGPS = 2004;//更新GPS
+  Room_NoticeRoleOnlineStatus = 2050;//玩家上线、下线通知
+  Room_NoticeRoleLeaveRoom = 2051;//玩家离开房间通知
+  Room_NoticeRemoveCuratorRoom = 2052;//移除代开房间通知
+  Room_NoticeCuratorCreateRoomSucce = 2053;//通知馆长创建房间
+  Room_NoticeCreateRoomDecrRoomCard = 2054;//创建房间扣除房卡通知
+  Room_NoticeRoomCreateOrJoinSpeData = 2055;//通知玩家房间特定信息
+  Room_NoticeNewMemberJoinRoom = 2056;//通知房间中的玩家有新玩家加入
+  Room_NoticeNewMemberJoinRoomRoleSpeData = 2057;//通知玩家玩家特定信息
+  Room_NoticeCuratorNewMemberJoinRoom = 2058;//通知馆长玩家加入代开房间
+  Room_RoomStatusNotice = 2059;//通知房间状态
+  Room_NoticeModifyApplyDissolveRoom = 2060;//变更申请解散房间通知
+  Room_CreaterDissolveRoomNotice = 2061;//通知房间玩家房主解散房间
+  Room_NoticeApplyDissolveRoom = 2062;//申请解散房间通知
+  Room_PlayerLeaveRoomNotice = 2063;//玩家离开房间通知
+  Room_RoomBalanceNotice = 2064;//结算通知
+  Room_DissolveRoomResultNotice = 2065;//申请解散房间结果通知
+  Room_FlushRoomRoleSpeDataNotice = 2066;//刷新房间特定数据
+  Room_QuitRoom = 2067;//退出房间
+
+  Room_Chat = 2068;//聊天
+}*/
+/*
+enum RoomRespId
+{
+  Room_RESP_NONE = 0;//proto3要求首个枚举值必须为0
+  Room_CreateRoomReply = 2000;//创建房间
+  Room_JoinRoomReply = 2001;//加入房间
+  Room_DissolveRoomReply = 2002;//申请解散房间
+  Room_AgreeOrRefuseDissolveRoomReply = 2003;//同意、拒绝解散房间
+  Room_QuitRoomReply = 2067;//返回退出房间
+  Room_ChatReply = 2068;//返回聊天信息
+}
+*/
+////////////////////////////////////消息定义end////////////////////////////
+
+////////////////////////////////////基础结构体start////////////////////////////
+message Net_Room_UpdateGPSReq{
+
+}
+//GPS数据
+message Net_Room_UpdateGPSRet
+{
+	//未知的字段
+	int32 state = 1;
+	
+	//房间唯一标识
+	int32 uid = 2;
+
+	//玩家唯一标识
+	string ppk = 3;
+
+	//维度
+	string latitude = 4;
+
+	//经度
+	string longitude = 5;
+}
+
+//房间规则基础数据
+message Base_Room_RoomRuleNormalData
+{
+	//底分
+	int32 baseNum = 1;
+
+	//规则ID集合
+	repeated int32 ruleIDs = 2;
+
+	//规则类型集合
+	repeated int32 ruleTypes = 3;
+
+	//规则ID和类型相互映射表
+	map<int32, int32> all = 4;
+}
+
+//房间玩家基础数据
+message Base_Room_RoomRoleNoramlData
+{
+	//玩家唯一标识
+	string ppk = 1;
+
+	//昵称
+	string nickName = 2;
+
+	//头像URL
+	string headUrl = 3;
+
+    //性别
+	int32 sex = 4;
+
+	//是否在线
+	bool online = 5;
+}
+
+//房间玩家一般数据
+message Base_Room_RoomRoleOtherData
+{
+	//状态()
+	int32 status = 1;
+
+	//经度
+	string longitude = 2;
+
+	//维度
+	string latitude = 3;
+
+	//IP地址
+	string ip = 4;
+}
+
+//房间规则基础数据
+message Base_Room_RoomRoleData
+{
+	//基础信息
+  Base_Room_RoomRoleNoramlData normalInfo = 1;
+
+	//一般信息
+  Base_Room_RoomRoleOtherData otherInfo = 2;
+}
+
+//房间数据
+message Net_Room_RoomDataInfo
+{
+	//房间唯一标识
+	int32 roomUid = 1;
+
+	//房间类型(0、好友场  1、代开场  2、好友金币场  3、金币场)
+	int32 type = 2;
+
+	//房间创建者唯一标识
+	string cppk = 3;
+
+	//当前庄家
+	string banker = 4;
+
+	//当前房间状态(0、等待准备  100、游戏结束  101、已解散)
+	int32 status = 5;
+
+	//当前局数(从1开始)
+	int32 gameNum = 6;
+
+	//最大局数
+	int32 maxNum = 7;
+
+	//房间结束时间
+	int32 endTime = 8;
+
+	//房间规则
+  Base_Room_RoomRuleNormalData rule = 9;
+
+    //房间总人数
+	int32 roleNum = 10;
+
+	//玩家集合
+	repeated Base_Room_RoomRoleData roles = 11;
+
+    //俱乐部标识
+    string clubKey = 12;
+
+    //游戲ID 客户端使用
+    int32 gameId = 13;
+}
+
+//代理房间玩家数据
+message Base_Room_CuratorRoomData
+{
+	//房间唯一标识
+	int32 roomUid = 1;
+
+	//房间规则
+  Base_Room_RoomRuleNormalData rule = 2;
+
+	//玩家集合
+	repeated Base_Room_RoomRoleNoramlData roles = 3;
+
+	//状态
+	int32 status = 4;
+}
+////////////////////////////////////基础结构体end////////////////////////////
+
+////////////////////////////////////消息start////////////////////////////
+
+//2000 创建房间 （C -> S）
+message Net_Room_CreateRoomReq
+{
+    int32 area = 1;//地区
+    int32 gameType = 2;	//游戏类型
+    int32 roomType = 3;//房间类型(0、好友场  1、代开场  2、金币场)
+    repeated int32 rules = 4;  //规则ID集合(数组)
+    string llas = 5;//经度_纬度_地区(用_分隔开 可以不获取定位)
+    bool joinRobot = 6;//是否创建机器人(开发或测试的时候使用 正式使用此值无效)
+    bool isClub = 7; //俱乐部
+    int32 enterScore = 8;// 入场分
+    int32 leaveScore = 9;// 离场分
+    int32 gameId = 10;//游戏ID 客户端使用
+}
+
+//2000 创建房间 （S -> C）
+message Net_Room_CreateRoomRet
+{
+    int32 roomType = 1;//状态
+    Net_Room_RoomDataInfo roomData = 2; //房间数据（需要传子类实现）
+}
+
+//2001 加入房间 （C -> S）
+message Net_Room_JoinRoomReq
+{
+    int32 roomId = 1;//房间信息（需要传子类实现）
+    int32 arg = 2;//参数（如果是好友场或代开场 此参数无效 如果是金币场则此参数为金币场配置ID）
+    string llas = 3;   //经度_纬度_地区(用_分隔开 可以不获取定位)
+}
+
+//2001 加入房间 （S -> C）
+message Net_Room_JoinRoomRet
+{
+    int32 result = 1;//状态
+    Net_Room_RoomDataInfo roomData = 2;// //房间数据（要分不同类型的游戏的房间，需要传子类）
+}
+
+//申请解散房间2002（C -> S）
+message Net_Room_DissolveRoomReq
+{
+    int32 roomId = 1;//状态
+}
+
+//申请解散房间2002（S -> C）
+message Net_Room_DissolveRoomRet
+{
+    int32 result = 1;  //结果
+}
+
+//同意、拒绝解散房间2003（C -> S）
+message Net_Room_AgreeOrRefuseDissolveRoomReq
+{
+    bool agree = 1; //是否同意
+}
+
+//同意、拒绝解散房间2003（S -> C）
+message Net_Room_AgreeOrRefuseDissolveRoomRet
+{
+    int32 result = 1; //结果
+}
+
+//玩家上下线通知2050（S -> C）
+message Net_Room_NoticeRoleOnlineStatusRet
+{
+    string ppk = 1;//玩家唯一标识
+    bool online = 2;//在线
+    Base_Room_RoomRoleNoramlData roleNormalData = 3;//玩家基础数据
+}
+
+//玩家离开房间通知2051（S -> C）
+message Net_Room_NoticeRoleLeaveRoomRet
+{
+    //玩家唯一标识
+    string ppk = 1;
+}
+
+//移除代开房间通知2052（S -> C）
+message Net_Room_NoticeRemoveCuratorRoomRet
+{
+    //玩家唯一标识
+    int32 uid = 1;
+}
+
+//通知馆长代开房间成功2053（S -> C）
+message Net_Room_NoticeCuratorCreateRoomSucceRet
+{
+    //房间数据
+    Base_Room_CuratorRoomData roomData = 1;
+}
+
+//通知创建房间扣除房卡2054（S -> C）
+message Net_Room_NoticeCreateRoomDecrRoomCardRet
+{
+    int32 cost = 1; //扣除的房卡数
+    int32 num = 2; //扣除剩余房卡数
+    int32 freeze = 3;//冻结的房卡数
+}
+
+//房间特定数据通知(通知创建者或加入者)2055（S -> C）
+message Net_Room_NoticeRoomCreateOrJoinSpeDataRet
+{
+    //房间唯一标识
+    int32 roomUid = 1;
+    //房间数据（要分不同类型的游戏的房间，需要传子类）
+    bytes roomData = 2;
+}
+
+//通知房间成员有新成员加入 普通数据2056(不会通知加入者)（S -> C）
+message Net_Room_NoticeNewMemberJoinRoomRet
+{
+    int32 roomUid = 1; //房间唯一标识
+    int32 index = 2;//位置
+    Base_Room_RoomRoleData roleData = 3;//玩家数据（需要传子类）
+}
+
+//通知房间成员有新成员加入 特定数据(不会通知创建者或加入者)2057（S -> C）
+message Net_Room_NoticeNewMemberJoinRoomRoleSpeDataRet
+{
+    int32 roomUid = 1;//房间唯一标识
+    Base_Room_RoomRoleData roleData = 2;//玩家数据（需要传子类）
+}
+
+//通知馆长有新成员加入2058(不会通知加入者)（S -> C）
+message Net_Room_NoticeCuratorNewMemberJoinRoomRet
+{
+    int32 roomUid = 1; //房间唯一标识
+    int32 index = 2; //位置
+    Base_Room_RoomRoleNoramlData roleNormalData = 3; //玩家基础数据
+}
+
+//房间状态通知2059（S -> C）
+message Net_Room_RoomStatusNoticeRet
+{
+    int32 roomUid = 1;//房间唯一标识
+    int32 status = 2; //状态
+}
+
+//变更玩家申请解散房间信息2060（S -> C）
+message Net_Room_NoticeModifyApplyDissolveRoomRet
+{
+    int32 uid = 1;//房间标识
+    string ppk = 2;//唯一标识
+    string nickName = 3;//昵称
+    int32 residueTime = 4;//剩余时间
+    map<string,int32> status = 5;//状态
+}
+
+//房主解散房间2061（S -> C）
+message Net_Room_CreaterDissolveRoomNoticeRet
+{
+    string ppk = 1;//唯一标识
+    string nickName = 2;//昵称
+    int32 uid = 3;//房间uid
+}
+
+//通知玩家申请解散房间2062（S -> C）
+message Net_Room_NoticeApplyDissolveRoomRet
+{
+    int32 uid = 1; //房间标识
+    string ppk = 2; //唯一标识
+    string nickName = 3;//昵称
+    int32 residueTime = 4;//剩余时间
+    map<string, int32> status = 5;//状态
+}
+
+//玩家离开房间2063（S -> C）
+message Net_Room_PlayerLeaveRoomNoticeRet
+{
+    int32 uid = 1;//房间唯一标识
+    string ppk = 2;//唯一标识
+}
+
+//结算2064（S -> C）
+message Net_Room_RoomBalanceNoticeRet
+{
+    int32 roomUid = 1;//房间唯一标识
+    bytes data = 2;//数据
+}
+
+//玩家申请解散结果通知2065（S -> C）
+message Net_Room_DissolveRoomResultNoticeRet
+{
+    bool agree = 1;//同意
+}
+
+//刷新玩家特定数据通知2066（S -> C）
+message Net_Room_FlushRoomRoleSpeDataNoticeRet
+{
+    int32 uid = 1; //房间标识
+    bool reconnect = 2;//重连
+}
+//请求退出游戏 C --> S
+message Net_Room_QuitRoomReq{
+    int32 roomId = 1;
+}
+
+//返回退出游戏 S --> C
+message Net_Room_QuitRoomRet
+{
+    int32 result = 1;//result 1成功退出 -1游戏已开始无法退出
+}
+
+
+//聊天 C--> S 2068
+message Net_Room_ChatReq
+{
+    optional int32 chatType = 1; //0文字 1表情 2魔法
+    optional int32 magic = 2;//魔法ID
+    optional int32 emojoy = 3;//表情ID
+    optional string chatMsg = 4;//聊天文字
+    repeated string receive = 5; //接收方
+}
+
+//聊天 S-->C 2068
+message Net_Room_ChatRet
+{
+    optional  int32 chatType = 1;//0文字 1表情 2魔法
+    optional int32 magic = 2;//魔法ID
+    optional  int32 emojoy = 3;//表情ID
+    optional string chatMsg = 4;//聊天文字
+    optional string send = 5; //发送方
+    repeated string receive = 6;//接收方
+}
+
+////////////////////////////////////消息end////////////////////////////

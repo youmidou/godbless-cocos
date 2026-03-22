@@ -1,0 +1,222 @@
+syntax = "proto3";
+package pb;
+option go_package = "./pb";
+/*
+  zjh
+方法
+CreateRoom //创建房间
+GetRoomInfo //获取房间信息
+JoinRoom //进入房间(包括其它玩家进入)
+LeaveRoom //离开房间(包括其它玩家离开房间)
+-----------------
+Prepare //准备
+FaPai  //发牌
+NextOperator //下一个操作
+KanPai //看牌
+BiPai  //比牌
+JiaZhu //加注
+GenZhu //跟住
+Offline//离线
+*/
+enum EZJHConstant{
+    Invalid=0;//
+    TotalRoles =9;//椅子总数
+
+}
+enum EZJH{
+  NotStarted=0;//没开始
+  InPreparation=1;//准备
+  InGame =2;//游戏中
+}
+enum C_ZJH{
+    C_ZJH_INVALID=0;
+    ReadySeconds=30;//-- 操作 准备倒计时秒数
+    NotReadySeconds=60;//-- 60秒不操作就被踢出去
+}
+
+enum E_ZJH_Operation{
+  //idle = - 1;//-- 空闲
+  start = 0;//-- 开始
+  Chupai = 2;//--搓牌
+  gen_zhu = 3;//-- 跟注
+  jia_zhu = 4;//-- 加注
+  bi_pai = 5;//-- 比牌
+  look_card = 6;//-- 看牌
+  qi_pai = 7;//-- 弃牌
+  ya_man = 8;//-- 全下
+  DiuChouMa = 9; //--丢筹码
+  tx_RatioCard = 10;//--比牌特效
+  tx_liangpaihecai =11; //--亮牌特效
+}
+
+
+//角色信息
+message Base_ZJH_UserInfo{
+  string UserId =1;
+  string NickName =2;
+  int64 Coins=3;//当前金币数
+  bool IsOffline =5;//是否离线
+
+  int32 ChairId =6;//椅子Id
+  bool IsReady =7;//是否准备
+
+  bool IsKanPai =8;//是否看牌
+  repeated string Cards =9;//牌
+
+  int32 BettingNum =10;//押注数
+  int32 TotalBettingNum=11;//总押注数
+
+  int32 MaxScore =12;//最高分数
+  int32 MinScore =13;//最低分数
+
+  string NextOperatorId=14;//操作用户
+
+}
+
+//场景信息
+message Base_ZJH_RoomInfo{
+  //string RoomType =1;
+  int32 RoomId =2;//房间号
+  string HomeownerId =3;//房主userId
+  int32 RoomLevel =4;//房间等级0:初级;2:中级;3:高级;
+
+  int32 State =5;//状态0:准备;1:开始;2:结算;
+  int32 ReadyCountdown=6;//准备倒计时
+  //CurrentServerTime Clock
+  repeated Base_ZJH_UserInfo RoleInfos =7;
+  string NextOperatorId=8; //下一个操作者
+
+  int32 WheelNum =10;//轮数:
+  int32 RoomTotalBettingNum=11;//房间总押注数
+  int32 RoomBettingChipList=12;//押注筹码列表 [10;50;100:200;500;1000;2000;4000;8000]
+
+  int64 OperationTime =14;//操作时间 30秒倒计时
+}
+//金币更新
+message Net_ZJH_GoldChangeRet{
+
+}
+    //
+//创建房间 Coins
+message Net_ZJH_CreateRoomReq
+{
+     int32 RoomLevel = 1; //房间等级0:初级;2:中级;3:高级;
+}
+message Net_ZJH_CreateRoomRet
+{
+  int32 Ret =1;//0:登录成功;1:凭据错误;2:重新链接失败;3:跨日;
+  int32 RoomId =2;
+}
+//加入房间
+message Net_ZJH_JoinRoomReq
+{
+  int32 RoomNum = 1; //房间号
+}
+message Net_ZJH_JoinRoomRet
+{
+  int32 Ret =1;//0:成功;1:没有房间;2:加入房间失败;
+  Base_ZJH_UserInfo TargetRoleInfo=2;//目标用户信息
+}
+//离开房间
+message Net_ZJH_LeaveRoomReq
+{
+}
+message Net_ZJH_LeaveRoomRet
+{
+  int32 Ret =1;//0:成功;1:没有房间;2:加入房间失败;
+  string LeaveUserId = 2; //用户离开房间
+}
+
+//获取房间信息
+message Net_ZJH_GetRoomInfoReq
+{
+}
+message Net_ZJH_GetRoomInfoRet
+{
+  int32 Ret=1;//0:成功;1:失败;
+  Base_ZJH_RoomInfo RoomInfo=2;//房间信息
+}
+//角色金币更新
+message Net_ZJH_RoleGoldChangeRet
+{
+  int32 UserId = 1; //用户
+  int64 Coins =2;//更新当前金币
+}
+//-------------------------------------------
+
+//准备
+message Net_ZJH_ReadyReq{
+}
+message Net_ZJH_ReadyRet{
+  int32 Req =1;//0:成功;1:失败;
+  string TargetUserId =2;//目标用户Id
+  bool TargetIsReady =3;//目标用户是否准备状态
+  int32 State=4;//房间状态
+}
+//开始游戏
+message Net_ZJH_StartGameRet{
+  int32 State=1;//房间状态
+  int32 BetCoin=2;//押注数
+  repeated Base_ZJH_UserInfo RoleInfoList =3;//
+  int32 NextOperatorId=4;//下一个操作玩家Id
+}
+
+//更新房间状态
+message Net_ZJH_UpdateStatusRet{
+  int32 State =1;//当前房间状态
+}
+
+//下一个操作
+message Net_ZJH_NextOperatorRet{
+  string NextOperatorId =10;//下一个操作者Id
+  int64 OperationTime =11;//操作时间 30秒倒计时
+
+}
+
+//看牌
+message Net_ZJH_KanPaiReq
+{
+}
+message Net_ZJH_KanPaiRet
+{
+  int32 Ret =1;//0:成功;1:失败;
+  repeated int32 Cards =8;//牌
+}
+//比牌
+message Net_ZJH_BiPaiReq{
+  string TargetUserId =1;//目标用户Id
+}
+message Net_ZJH_BiPaiRet{
+  int32 Ret =1;//0:成功;1:失败;
+  bool IsWin =2;//是否赢
+  repeated int32 Cards =8;//如果输了显示自己的牌
+
+}
+//加注
+message Net_ZJH_JiaZhuReq{
+  int32 BettingNum =1;//押注数
+}
+message Net_ZJH_JiaZhuRet{
+  int32 Ret =1;//0:成功;1:失败;
+  string UserId =2;
+  int32 BettingNum =3;//押注数
+  int32 OwnTotalBettingNum=4;//自己总押注数
+  int32 RoomTotalBettingNum=5;//房间总押注数
+}
+//跟注
+message Net_ZJH_GenZhuReq{
+}
+message Net_ZJH_GenZhuRet{
+  int32 Ret =1;//0:成功;1:失败;
+  string UserId =2;
+  int32 BettingNum =3;//押注数
+  int32 OwnTotalBettingNum=4;//自己总押注数
+  int32 RoomTotalBettingNum=5;//房间总押注数
+}
+
+
+//离线状态
+message Net_ZJH_OfflineRet{
+  string TargetUserId =2;//目标用户Id
+  bool TargetIsIsOffline =3;//目标用户是否离线 true:离线;false:在线;
+}

@@ -1,0 +1,34 @@
+
+icon_cjfj.png
+size: 173,396
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+01
+  rotate: false
+  xy: 2, 119
+  size: 166, 103
+  orig: 166, 103
+  offset: 0, 0
+  index: -1
+di
+  rotate: false
+  xy: 2, 224
+  size: 169, 170
+  orig: 169, 170
+  offset: 0, 0
+  index: -1
+sy_cjfj_bb
+  rotate: false
+  xy: 2, 31
+  size: 161, 86
+  orig: 161, 86
+  offset: 0, 0
+  index: -1
+sy_font_cjfj
+  rotate: false
+  xy: 2, 2
+  size: 99, 27
+  orig: 99, 27
+  offset: 0, 0
+  index: -1
