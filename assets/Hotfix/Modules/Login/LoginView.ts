@@ -68,7 +68,7 @@ export class LoginView{
     private LoginAuth(data:any){
         async function _er(){
             this.IsAuthState = true;
-            let httpClient:HttpClient = new HttpClient("http://127.0.0.1:8888");
+            let httpClient:HttpClient = new HttpClient("http://192.168.5.3:8888");
             let response = await httpClient.CoPost("/api/login",data);
             if (response.success) {
                 Log4.Log("AuthLogin请求 成功:", response.data);

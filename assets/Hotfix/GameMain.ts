@@ -34,6 +34,7 @@ export class GameMain extends Component{
     private m_updateManager: UpdateManager = null;
 
    protected onLoad():void {
+
         // 检查 assetManager 是否已初始化
         if (assetManager && assetManager.cacheManager) {
             //Log4.Log("cacheManager 已初始化:", assetManager.cacheManager);
@@ -46,6 +47,7 @@ export class GameMain extends Component{
     }
 
     async start() {
+
         // 将节点添加到持久层
         GameObject.DontDestroyOnLoad(this.node)
         //GameUtilsManager.Instance.SetIntegerByKeyForAllUsers("is_use_xasset",GConfig.Enable_XAsset);
