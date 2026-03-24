@@ -17,7 +17,7 @@ import {IHolder} from "db://assets/Hotfix/pkg/Common/IHolder";
 import {DownloadManager} from "db://assets/Hotfix/pkg/Manager/DownloadManager";
 import { PopupData } from "../utils/PopUpQueueStack";
 import {Dictionary} from "db://assets/Hotfix/pkg/utils/Dictionary";
-import { LobbyManager } from "../../Modules/Lobby/LobbyManager";
+import { LobbyManager } from "db://assets/Hotfix/Modules/Lobby/LobbyManager";
 import { ThemeDataManager } from "../../ThemeGameEngine/ThemeDataManager";
 import { ResolutionAdapter } from "../../../Scripts/XTudouFramework/UI/ResolutionAdapter";
 import {BaseScene} from "db://assets/Hotfix/pkg/Scene/BaseScene";

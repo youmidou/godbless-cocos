@@ -83,7 +83,7 @@ export class LoginView{
                 await this.EnterGame();
 
             } else {
-                Log4.LogError("AuthLogin请求 失败 error:",response.error);
+                Log4.LogError("AuthLogin请求 失败 error:http://192.168.5.3:8888",response.error);
                 this.IsAuthState = false;
                 //await SYSCoroutineUtil.WaitForSeconds(3) //等待3秒
                 //await this.LoginAuth()

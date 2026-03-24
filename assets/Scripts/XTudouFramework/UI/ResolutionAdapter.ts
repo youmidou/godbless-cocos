@@ -35,7 +35,7 @@ export class ResolutionAdapter extends Component {
        this.origin_device_width = cc.screen.windowSize.width
        this.origin_device_height = cc.screen.windowSize.height
 
-       this.ResetResolution()
+       //this.ResetResolution()
 
        if (CC_EDITOR) {
            if (!this.IsLandscape())
@@ -52,6 +52,7 @@ export class ResolutionAdapter extends Component {
 
     //重置分辨率
     private ResetResolution(){
+        return;
 
         if(!this.scaler)
         {
@@ -118,12 +119,13 @@ export class ResolutionAdapter extends Component {
     public update(deltaTime: number):void {
 
         // 设备水平方向，home键在手机左侧
-
     }
 
     // 切换到竖屏
     public SwitchToPortrait(): void {
-        console.log("SwitchToPortrait enter");
+        console.log("SwitchToPortrait enter 切换到竖屏");
+        return;
+
         this.portraitMode = true;
 
         if (CC_EDITOR) {
@@ -172,9 +174,10 @@ export class ResolutionAdapter extends Component {
 
     // 切换到横屏
     public SwitchToLandscape(): void {
-        console.log("SwitchToLandscape enter");
-        this.portraitMode = false;
+        console.log("SwitchToLandscape enter 切换到横屏");
+        return;
 
+        this.portraitMode = false;
         if (CC_EDITOR) {
             // 编辑器模式
             let v: cc.Size = new cc.Size();
